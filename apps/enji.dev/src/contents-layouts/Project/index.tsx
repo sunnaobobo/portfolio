@@ -1,10 +1,7 @@
 import WithReactions from '@/components/layouts/WithReactions';
 import WithTableOfContents from '@/components/layouts/WithTableOfContents';
-import Head from '@/components/meta/Head';
 import SkipNavigation from '@/components/navigations/SkipNavigation';
 import PageHeader from '@/components/PageHeader';
-
-import { getPageOgImageUrl } from '@/helpers/page';
 
 import ProjectFooter from '@/contents-layouts/Project/ProjectFooter';
 import ProjectMeta from '@/contents-layouts/Project/ProjectMeta';
@@ -22,17 +19,9 @@ function ProjectLayout({
   tableOfContents,
   children = null,
 }: PropsWithChildren<ProjectLayoutProps>) {
-  // get og image urls
-  const image = getPageOgImageUrl({
-    caption,
-    title,
-    description,
-  });
-
   return (
     <>
       <SkipNavigation />
-      <Head title={title} description={description} ogImage={image.default} />
       <PageHeader title={title} description={description} caption={caption} />
       <ProjectMeta githubUrl={githubUrl} npmUrl={npmUrl} />
       <WithTableOfContents tableOfContents={tableOfContents}>

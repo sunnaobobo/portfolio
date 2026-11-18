@@ -1,7 +1,8 @@
-import { ContentType } from '@prisma/client';
+'use client';
+
 import clsx from 'clsx';
 import { m, useAnimationControls } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 import EmojiReaction from '@/components/EmojiReaction';
@@ -13,6 +14,7 @@ import useScrollSpy from '@/hooks/useScrollSpy';
 
 import { MAX_REACTIONS_PER_SESSION } from '@/constants/app';
 
+import type { ContentType } from '@/generated/prisma/enums';
 import type { PropsWithChildren } from 'react';
 
 interface CounterProps {
@@ -90,11 +92,9 @@ function Reactions({
   contentTitle,
   withCountView = true,
 }: ReactionsProps) {
-  // currently, there is no way to get the 'slug' via a component property.
-  const { pathname } = useRouter();
-  const slug = pathname.split('/').reverse()[0];
+  const pathname = usePathname() ?? '';
+  const slug = pathname.split('/').filter(Boolean).pop() ?? '';
 
-  // current active section
   const { currentSection } = useScrollSpy();
 
   const {
@@ -135,7 +135,7 @@ function Reactions({
   return (
     <m.div
       className={clsx(
-        'border-divider-light pointer-events-auto relative flex items-center justify-between rounded-xl border p-4',
+        'pointer-events-auto relative flex items-center justify-between rounded-xl border border-divider-light p-4',
         'dark:border-divider-dark'
       )}
       initial={{

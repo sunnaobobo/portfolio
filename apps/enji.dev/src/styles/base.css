@@ -1,6 +1,41 @@
-@tailwind base;
-
 @layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-slate-200, currentColor);
+  }
+
+  :root,
+  [data-accent='violet'] {
+    --accent-50: var(--color-violet-50);
+    --accent-100: var(--color-violet-100);
+    --accent-200: var(--color-violet-200);
+    --accent-300: var(--color-violet-300);
+    --accent-400: var(--color-violet-400);
+    --accent-500: var(--color-violet-500);
+    --accent-600: var(--color-violet-600);
+    --accent-700: var(--color-violet-700);
+    --accent-800: var(--color-violet-800);
+    --accent-900: var(--color-violet-900);
+    --accent-950: var(--color-violet-950);
+  }
+
+  [data-accent='blue'] {
+    --accent-50: var(--color-blue-50);
+    --accent-100: var(--color-blue-100);
+    --accent-200: var(--color-blue-200);
+    --accent-300: var(--color-blue-300);
+    --accent-400: var(--color-blue-400);
+    --accent-500: var(--color-blue-500);
+    --accent-600: var(--color-blue-600);
+    --accent-700: var(--color-blue-700);
+    --accent-800: var(--color-blue-800);
+    --accent-900: var(--color-blue-900);
+    --accent-950: var(--color-blue-950);
+  }
+
   html {
     -webkit-tap-highlight-color: transparent;
     @apply scroll-smooth;
@@ -8,7 +43,6 @@
 
   html,
   body,
-  #__next,
   #__root {
     @apply h-full;
   }
@@ -27,12 +61,15 @@
   }
 
   :focus-visible {
-    @apply ring-accent-400 relative rounded-xl outline-none ring-2;
+    @apply relative rounded-xl ring-2 ring-accent-400 outline-hidden;
   }
 
   ::selection {
     @apply bg-accent-200/60 text-accent-900;
-    @apply dark:bg-accent-400/30 dark:text-accent-100;
+  }
+
+  .dark ::selection {
+    @apply bg-accent-400/30 text-accent-100;
   }
 
   .scrollbar-hide {

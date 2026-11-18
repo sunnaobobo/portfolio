@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 
@@ -28,8 +30,8 @@ function PageHeader({
     <header
       id="page-header"
       className={clsx(
-        'background-grid background-grid--fade-out border-divider-light z-[900] mb-10 border-b pb-10 pt-32',
-        'md:mb-0 md:border-none md:pb-20 md:pt-40',
+        'background-grid background-grid--fade-out z-[900] mb-10 border-b border-divider-light pt-32 pb-10',
+        'md:mb-0 md:border-none md:pt-40 md:pb-20',
         'dark:border-divider-dark'
       )}
     >
@@ -44,7 +46,7 @@ function PageHeader({
             )}
           >
             <div className={clsx('content-wrapper relative h-full')}>
-              <div className={clsx('absolute -top-24 bottom-0 right-0')}>
+              <div className={clsx('absolute -top-24 right-0 bottom-0')}>
                 {headerImage}
               </div>
             </div>
@@ -60,7 +62,7 @@ function PageHeader({
           >
             <span
               className={clsx(
-                'text-accent-600 mb-1 block text-lg font-extrabold capitalize leading-none',
+                'mb-1 block text-lg leading-none font-extrabold text-accent-600 capitalize',
                 'md:mb-0 md:text-2xl',
                 'dark:text-accent-400'
               )}
@@ -76,7 +78,7 @@ function PageHeader({
         >
           <h1
             className={clsx(
-              'text-[2.5rem] font-extrabold leading-tight text-slate-700',
+              'text-[2.5rem] leading-tight font-extrabold text-slate-700',
               'md:text-7xl md:leading-snug',
               'dark:text-slate-300'
             )}

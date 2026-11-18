@@ -1,4 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading */
+'use client';
+
 import clsx from 'clsx';
 import NextImage from 'next/image';
 import { useState } from 'react';
@@ -24,7 +25,7 @@ export default function Image({
           style={{ backgroundImage: `url(${image})` }}
           className={clsx(
             'absolute -inset-8 z-[-1] rounded-[20%] bg-[length:180%_180%] bg-center opacity-25 blur-2xl',
-            'hidden', // disable immersive on light mode
+            'hidden',
             'dark:block'
           )}
         />
@@ -32,13 +33,13 @@ export default function Image({
       <NextImage
         src={src}
         className={clsx(
-          'border-divider-light rounded-lg border',
+          'rounded-lg border border-divider-light',
           'dark:border-divider-dark',
           className
         )}
         {...props}
-        onLoadingComplete={(img) => {
-          setImage(img.currentSrc);
+        onLoad={(e) => {
+          setImage(e.currentTarget.currentSrc);
         }}
       />
     </div>

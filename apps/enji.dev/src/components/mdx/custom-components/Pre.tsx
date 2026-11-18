@@ -1,3 +1,5 @@
+'use client';
+
 import Code from '@/components/mdx/Code';
 
 import { formatLang } from '@/helpers/mdx';

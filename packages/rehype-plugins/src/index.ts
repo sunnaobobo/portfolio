@@ -3,12 +3,10 @@ import rehypePrismPlus from 'rehype-prism-plus';
 import withCodeAttributes from './withCodeAttributes';
 import withInlineHighlights from './withInlineHighlights';
 
-import type { PluggableList } from 'unified';
+import type { Preset } from 'unified';
 
-const plugins: PluggableList = [
-  rehypePrismPlus,
-  withInlineHighlights,
-  withCodeAttributes,
-];
+const preset: Preset = {
+  plugins: [rehypePrismPlus, withInlineHighlights, withCodeAttributes],
+};
 
-export default plugins;
+export default preset;

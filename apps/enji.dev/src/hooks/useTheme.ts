@@ -1,13 +1,17 @@
+'use client';
+
 import { useTheme as useNextThemes } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+const emptySubscribe = () => () => {};
 
 function useTheme() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
   const { resolvedTheme, setTheme } = useNextThemes();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return {
     theme: mounted ? resolvedTheme : undefined,

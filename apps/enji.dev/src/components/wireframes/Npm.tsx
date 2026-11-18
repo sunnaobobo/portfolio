@@ -96,7 +96,7 @@ function NpmWireframe({
       <div className={clsx('mt-4')}>
         <div
           className={clsx(
-            'border-divider-light mt-8 border-l-4 bg-slate-200/40 p-2 px-4',
+            'mt-8 border-l-4 border-divider-light bg-slate-200/40 p-2 px-4',
             'dark:border-divider-dark dark:bg-slate-100/5'
           )}
         >
@@ -104,7 +104,7 @@ function NpmWireframe({
         </div>
         <div
           className={clsx(
-            'border-divider-light my-4 border-b',
+            'my-4 border-b border-divider-light',
             'dark:border-divider-dark'
           )}
         />

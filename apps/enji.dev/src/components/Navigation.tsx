@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 
 import { GitHubIcon, TwitterIcon } from '@/components/Icons';
@@ -22,14 +24,14 @@ function Navbar() {
 
   return (
     <header
-      className={clsx('fixed left-0 right-0 top-0 z-[1000]', 'fm:absolute')}
+      className={clsx('fixed top-0 right-0 left-0 z-[1000]', 'fm:absolute')}
     >
       <div
         className={clsx(
           'fixed inset-0 h-16',
           [
             isScrolled === true && [
-              'border-divider-light border-b bg-white/70 backdrop-blur',
+              'border-b border-divider-light bg-white/70 backdrop-blur',
               'dark:border-divider-dark dark:bg-slate-900/80',
             ],
           ],
@@ -82,7 +84,7 @@ function Navbar() {
             <li className={clsx('hidden', 'sm:block')}>
               <div
                 className={clsx(
-                  'ml-2 mr-4 h-3 w-[1px] bg-slate-200',
+                  'mr-4 ml-2 h-3 w-[1px] bg-slate-200',
                   'dark:bg-slate-700'
                 )}
               />

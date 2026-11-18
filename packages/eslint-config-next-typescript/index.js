@@ -1,62 +1,55 @@
-/** @type {import('eslint').Linter.Config} */
-module.exports = {
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
-  extends: [
-    'airbnb',
-    'airbnb-typescript',
-    'airbnb/hooks',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:@next/next/recommended',
-    'prettier',
-  ],
-  parser: '@typescript-eslint/parser',
-  rules: {
-    '@next/next/no-html-link-for-pages': ['error', 'apps/enji.dev/src/pages/'],
-    'no-underscore-dangle': ['error', { allow: ['_count', '_sum'] }],
-    'import/extensions': 'off',
-    'import/order': 'off',
-    'import/prefer-default-export': 'off',
-    'simple-import-sort/exports': 'warn',
-    'simple-import-sort/imports': [
-      'warn',
-      {
-        groups: [
-          // Packages and side effect imports.
-          ['^@?\\w', '^\\u0000'],
-          // Components and providers.
-          ['^@/components', '^@/providers'],
-          // Hooks
-          ['^@/hooks'],
-          // Utils, helpers, and lib
-          ['^@/utils', '^@/helpers', '^@/lib'],
-          // Other absolute imports.
-          ['^@/'],
-          // Relative imports.
-          ['^\\.'],
-          // Import type and types.
-          ['^.*\\u0000$', '^@/types'],
-          // Styles.
-          ['^.+\\.s?css$'],
-          // Anything not matched in another group.
-          ['^'],
-        ],
-      },
-    ],
-    'react/require-default-props': ['error', { functions: 'defaultArguments' }],
-    'react/jsx-props-no-spreading': [
-      'error',
-      {
-        html: 'ignore',
-      },
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTypescript from 'eslint-config-next/typescript';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+
+/** @type {import('eslint').Linter.Config[]} */
+const config = [
+  ...nextVitals,
+  ...nextTypescript,
+  {
+    ignores: [
+      '.next/**',
+      '.turbo/**',
+      'dist/**',
+      'node_modules/**',
+      'src/generated/**',
+      'next-env.d.ts',
+      '**/*.js',
+      '**/*.mjs',
+      '**/*.jsx',
     ],
   },
-  ignorePatterns: [
-    '.next',
-    '.turbo',
-    'node_modules',
-    '**/*.js',
-    '**/*.mjs',
-    '**/*.jsx',
-  ],
-};
+  {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+      'simple-import-sort/exports': 'warn',
+      'simple-import-sort/imports': [
+        'warn',
+        {
+          groups: [
+            ['^@?\\w', '^\\u0000'],
+            ['^@/components', '^@/providers'],
+            ['^@/hooks'],
+            ['^@/utils', '^@/helpers', '^@/lib'],
+            ['^@/'],
+            ['^\\.'],
+            ['^.*\\u0000$', '^@/types'],
+            ['^.+\\.s?css$'],
+            ['^'],
+          ],
+        },
+      ],
+    },
+  },
+  eslintConfigPrettier,
+];
+
+export default config;

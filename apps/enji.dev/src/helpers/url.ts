@@ -5,7 +5,7 @@ export const getBaseUrl = () => {
     case 'preview':
       return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
     default:
-      return `http://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+      return `http://${process.env.NEXT_PUBLIC_VERCEL_URL || 'localhost:3000'}`;
   }
 };
 

@@ -21,7 +21,7 @@ function Error404Contents() {
         <Link
           href="/"
           className={clsx(
-            'text-accent-600 rounded-xl px-4 py-2 text-xl',
+            'rounded-xl px-4 py-2 text-xl text-accent-600',
             'dark:text-accent-400'
           )}
         >

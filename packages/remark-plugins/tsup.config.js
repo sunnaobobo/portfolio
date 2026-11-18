@@ -6,6 +6,7 @@ export default defineConfig((options) => {
   return {
     entry: ['src/index.ts'],
     format: ['esm'],
+    dts: true,
     sourcemap: production ? false : 'inline',
     minify: production,
     clean: true,

@@ -1,10 +1,55 @@
-@import 'tailwindcss/base';
+@import 'tailwindcss';
 @import './base.css';
-
-@import 'tailwindcss/components';
 @import './components.css';
 @import './prism-colors.css';
 @import './mdx-contents.css';
 @import './mdx-components.css';
 
-@import 'tailwindcss/utilities';
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant fm (.fm &);
+
+@theme inline {
+  --font-sans:
+    var(--font-jakarta, ''), ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    var(--font-jetbrains, ''), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  --color-divider-light: var(--color-slate-200);
+  --color-divider-dark: var(--color-slate-800);
+
+  --color-accent-50: var(--accent-50);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-accent-800: var(--accent-800);
+  --color-accent-900: var(--accent-900);
+  --color-accent-950: var(--accent-950);
+
+  --animate-bounce-x: bounce-x 1s infinite;
+
+  @keyframes bounce-x {
+    0%,
+    100% {
+      transform: translateX(25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateX(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+}
+
+@utility bg-grid-light {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(226 232 240 / 0.8)' stroke-dasharray='5 3' transform='scale(1, -1)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+}
+
+@utility bg-grid-dark {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(248 250 252 / 0.025)' stroke-dasharray='5 3' transform='scale(1, -1)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+}

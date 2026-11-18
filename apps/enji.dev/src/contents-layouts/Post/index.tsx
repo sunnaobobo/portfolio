@@ -1,8 +1,5 @@
-import { PropsWithChildren } from 'react';
-
 import WithReactions from '@/components/layouts/WithReactions';
 import WithTableOfContents from '@/components/layouts/WithTableOfContents';
-import Head from '@/components/meta/Head';
 import SkipNavigation from '@/components/navigations/SkipNavigation';
 import PageHeader from '@/components/PageHeader';
 
@@ -12,6 +9,7 @@ import PostFooter from '@/contents-layouts/Post/PostFooter';
 import PostMeta from '@/contents-layouts/Post/PostMeta';
 
 import type { TPostFrontMatter, TTableOfContents } from '@/types';
+import type { PropsWithChildren } from 'react';
 
 interface PostProps {
   frontMatter: TPostFrontMatter;
@@ -23,7 +21,6 @@ function Post({
   tableOfContents,
   children = null,
 }: PropsWithChildren<PostProps>) {
-  // get og image urls
   const postOgImages = getPostOgImageUrl({
     category: caption || category,
     title,
@@ -32,7 +29,6 @@ function Post({
     tags,
   });
 
-  // get structured data
   const structuredData = getPostStructuredData({
     title,
     dateModified: date,
@@ -42,11 +38,9 @@ function Post({
 
   return (
     <>
-      <Head
-        title={title}
-        description={description}
-        ogImage={postOgImages.default}
-        structuredData={structuredData}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: structuredData }}
       />
       <SkipNavigation />
       <PageHeader title={title} description={description} caption={caption} />

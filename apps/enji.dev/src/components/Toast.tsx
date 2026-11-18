@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import { toast } from 'react-hot-toast';
@@ -18,7 +20,7 @@ function Toast({ title, message, t }: ToastProps) {
       animate={{ opacity: [0, 1], x: [16, 0] }}
       transition={{ ease: 'easeOut', duration: 0.24 }}
       className={clsx(
-        'border-divider-light flex w-full gap-2 rounded-xl border bg-white/60 p-4 text-[13px] backdrop-blur',
+        'flex w-full gap-2 rounded-xl border border-divider-light bg-white/60 p-4 text-[13px] backdrop-blur',
         'sm:max-w-[400px]',
         'dark:border-divider-dark dark:bg-slate-900/60'
       )}
@@ -28,7 +30,7 @@ function Toast({ title, message, t }: ToastProps) {
       </div>
       <div className={clsx('flex flex-col gap-1')}>
         <div
-          className={clsx('text-accent-600 font-bold', 'dark:text-accent-400')}
+          className={clsx('font-bold text-accent-600', 'dark:text-accent-400')}
         >
           {title}
         </div>

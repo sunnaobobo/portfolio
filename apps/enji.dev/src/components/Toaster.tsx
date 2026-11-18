@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { ToastBar, Toaster } from 'react-hot-toast';
 

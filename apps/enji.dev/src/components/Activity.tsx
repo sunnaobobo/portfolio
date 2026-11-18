@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import Link from 'next/link';
@@ -7,6 +9,7 @@ import useContentActivity from '@/hooks/useContentActivity';
 import { relativeTime } from '@/helpers/date';
 
 import type { TContentActivity, TContentActivityReaction } from '@/types';
+import type { Variants } from 'framer-motion';
 
 interface ActivityItemProps {
   data: TContentActivity;
@@ -16,10 +19,10 @@ function ActivityItem({
   data: {
     activityType,
     type,
-    slug,
+    slug: _slug,
     contentTitle,
     contentType,
-    createdAt,
+    createdAt: _createdAt,
     ...rest
   },
 }: ActivityItemProps) {
@@ -46,7 +49,7 @@ function ActivityItem({
         <span>the</span>
         <span
           className={clsx(
-            'text-accent-600 font-semibold',
+            'font-semibold text-accent-600',
             'dark:text-accent-400'
           )}
         >
@@ -59,7 +62,7 @@ function ActivityItem({
         {count !== 1 && (
           <span
             className={clsx(
-              'border-divider-dark rounded-md border bg-slate-200 px-1 font-mono text-xs font-bold',
+              'rounded-md border border-divider-dark bg-slate-200 px-1 font-mono text-xs font-bold',
               'dark:border-divider-light dark:bg-slate-800'
             )}
           >
@@ -76,7 +79,7 @@ function ActivityItem({
       <span>the</span>
       <span
         className={clsx(
-          'text-accent-600 font-semibold',
+          'font-semibold text-accent-600',
           'dark:text-accent-400'
         )}
       >
@@ -91,7 +94,7 @@ function ActivityItem({
   );
 }
 
-const animation = {
+const animation: Variants = {
   hide: { y: -48, opacity: 0 },
   show: {
     y: 0,
@@ -157,7 +160,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
               onItemClick();
             }}
             className={clsx(
-              'border-divider-light block rounded-xl border bg-white/60 p-4 text-[13px] backdrop-blur',
+              'block rounded-xl border border-divider-light bg-white/60 p-4 text-[13px] backdrop-blur',
               'dark:border-divider-dark dark:bg-slate-900/60'
             )}
           >

@@ -44,7 +44,7 @@ function GitHubWireframe({
         </div>
         <div
           className={clsx(
-            'border-divider-light ml-1 rounded-full border px-2 py-0.5 text-xs',
+            'ml-1 rounded-full border border-divider-light px-2 py-0.5 text-xs',
             'dark:border-divider-dark'
           )}
         >
@@ -79,7 +79,7 @@ function GitHubWireframe({
       <div className={clsx('mt-6 flex gap-2')}>
         <div
           className={clsx(
-            'border-divider-light flex h-8 flex-1 items-center justify-center rounded-lg border',
+            'flex h-8 flex-1 items-center justify-center rounded-lg border border-divider-light',
             'dark:border-divider-dark'
           )}
         >
@@ -90,7 +90,7 @@ function GitHubWireframe({
         </div>
         <div
           className={clsx(
-            'border-divider-light flex h-8 flex-1 items-center justify-center rounded-lg border',
+            'flex h-8 flex-1 items-center justify-center rounded-lg border border-divider-light',
             'dark:border-divider-dark'
           )}
         >
@@ -102,7 +102,7 @@ function GitHubWireframe({
       </div>
       <div
         className={clsx(
-          'border-divider-light mt-4 flex border-b',
+          'mt-4 flex border-b border-divider-light',
           'dark:border-divider-dark'
         )}
       >

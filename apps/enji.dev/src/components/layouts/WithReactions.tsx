@@ -21,7 +21,7 @@ function WithReactions(props: ReactionsProps) {
             'sm:max-w-[420px] sm:px-0'
           )}
         >
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          {}
           <Reactions {...props} />
         </div>
       </WithTableOfContentsMock>

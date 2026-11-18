@@ -1,4 +1,6 @@
-import { Popover } from '@headlessui/react';
+'use client';
+
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 
@@ -22,7 +24,7 @@ function InsightButton({ views, shares, reactions }: InsightButtonProps) {
     <Popover>
       {({ open }) => (
         <>
-          <Popover.Button
+          <PopoverButton
             title="Insight"
             aria-label="Insight"
             className={clsx(
@@ -32,22 +34,22 @@ function InsightButton({ views, shares, reactions }: InsightButtonProps) {
             )}
           >
             <InsightIcon className={clsx('h-5 w-5')} />
-          </Popover.Button>
+          </PopoverButton>
           {open && (
-            <Popover.Panel
+            <PopoverPanel
               static
               as={m.div}
               variants={animation}
               initial="hide"
               animate="show"
               className={clsx(
-                'border-divider-light absolute inset-x-2 bottom-24 z-[902] flex flex-col overflow-hidden rounded-2xl border bg-white/70 pb-2 pt-1 backdrop-blur',
+                'absolute inset-x-2 bottom-24 z-[902] flex flex-col overflow-hidden rounded-2xl border border-divider-light bg-white/70 pt-1 pb-2 backdrop-blur',
                 'dark:border-divider-dark dark:bg-slate-900/80'
               )}
             >
               <div
                 className={clsx(
-                  'px-4 py-3 text-center text-[13px] text-lg font-bold'
+                  'px-4 py-3 text-center text-lg text-[13px] font-bold'
                 )}
               >
                 Insight
@@ -72,7 +74,7 @@ function InsightButton({ views, shares, reactions }: InsightButtonProps) {
                   </div>
                 </div>
               </div>
-            </Popover.Panel>
+            </PopoverPanel>
           )}
         </>
       )}

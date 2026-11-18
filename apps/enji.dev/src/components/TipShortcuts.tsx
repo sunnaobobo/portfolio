@@ -1,9 +1,13 @@
+'use client';
+
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import { Fragment } from 'react';
 
 import { KeyboardIcon } from '@/components/Icons';
 import Kbd from '@/components/Kbd';
+
+import type { Variants } from 'framer-motion';
 
 const shortcuts: Array<{
   title: string;
@@ -27,7 +31,7 @@ const shortcuts: Array<{
   },
 ];
 
-const animation = {
+const animation: Variants = {
   hide: { x: -24, opacity: 0 },
   show: {
     x: 0,

@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { PropsWithChildren, useRef, useState } from 'react';
 
@@ -59,7 +61,7 @@ function Code({
         setCopied(true);
         setTimeout(() => setCopied(false), 1000);
       }
-    } catch (err) {
+    } catch {
       setCopied(false);
     }
   };

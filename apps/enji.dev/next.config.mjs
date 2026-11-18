@@ -1,7 +1,5 @@
-import bundeAnalyzer from '@next/bundle-analyzer';
-import nextMDX from '@next/mdx';
-import rehypePlugins from 'rehype-plugins';
-import remarkPlugins from 'remark-plugins';
+import bundleAnalyzer from '@next/bundle-analyzer';
+import createMDX from '@next/mdx';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -17,20 +15,22 @@ const nextConfig = {
       permanent: false,
     },
   ],
+  images: {
+    qualities: [75, 100],
+  },
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
 };
 
-const withBundleAnalyzer = bundeAnalyzer({
+const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const withMDX = nextMDX({
+const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins,
-    rehypePlugins,
-    providerImportSource: '@mdx-js/react',
+    remarkPlugins: ['remark-plugins'],
+    rehypePlugins: ['rehype-plugins'],
   },
 });
 

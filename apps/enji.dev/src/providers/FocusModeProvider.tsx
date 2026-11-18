@@ -1,9 +1,13 @@
+'use client';
+
 import { useEffect } from 'react';
 
 import useFocusMode from '@/hooks/useFocusMode';
 
+import type { ReactNode } from 'react';
+
 interface FocusModeProviderProps {
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 function FocusModeProvider({ children }: FocusModeProviderProps) {
@@ -17,7 +21,7 @@ function FocusModeProvider({ children }: FocusModeProviderProps) {
     }
   }, [focusMode]);
 
-  return children;
+  return <>{children}</>;
 }
 
 export default FocusModeProvider;

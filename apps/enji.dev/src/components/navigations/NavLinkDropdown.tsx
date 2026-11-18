@@ -1,4 +1,6 @@
-import { Menu } from '@headlessui/react';
+'use client';
+
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import Link from 'next/link';
@@ -20,7 +22,6 @@ type LinkRefProps = HTMLAttributes<HTMLAnchorElement> & {
 
 const LinkRef = forwardRef(
   ({ href, children, ...rest }: LinkRefProps, ref: Ref<HTMLAnchorElement>) => (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <Link href={href} ref={ref} {...rest}>
       {children}
     </Link>
@@ -45,39 +46,39 @@ function NavLinkDropdown({ title, items }: NavLinkDropdownProps) {
       <Menu>
         {({ open }) => (
           <>
-            <Menu.Button className={clsx('nav-link nav-link--label ml-2')}>
+            <MenuButton className={clsx('nav-link nav-link--label ml-2')}>
               {title}
               <ChevronRightIcon
                 className={clsx('h-3 w-3 rotate-90', [open && '-rotate-90'])}
               />
-            </Menu.Button>
+            </MenuButton>
             {open && (
-              <Menu.Items
+              <MenuItems
                 static
                 as={m.div}
                 variants={animation}
                 initial="hide"
                 animate="show"
                 className={clsx(
-                  'border-divider-light absolute top-11 flex w-40 flex-col rounded-2xl border bg-white/70 p-2 backdrop-blur',
+                  'absolute top-11 flex w-40 flex-col rounded-2xl border border-divider-light bg-white/70 p-2 backdrop-blur',
                   'dark:border-divider-dark dark:bg-slate-900/80'
                 )}
               >
                 {items.map((item) => (
-                  <Menu.Item key={item.href}>
-                    {({ active }) => (
+                  <MenuItem key={item.href}>
+                    {({ focus }) => (
                       <LinkRef
                         href={item.href}
                         className={clsx('nav-link h-8 text-xs', [
-                          active && 'nav-link--focus',
+                          focus && 'nav-link--focus',
                         ])}
                       >
                         {item.title}
                       </LinkRef>
                     )}
-                  </Menu.Item>
+                  </MenuItem>
                 ))}
-              </Menu.Items>
+              </MenuItems>
             )}
           </>
         )}

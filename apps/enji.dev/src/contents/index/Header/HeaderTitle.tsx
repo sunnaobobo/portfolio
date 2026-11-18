@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { m, useAnimationControls } from 'framer-motion';
 import Image from 'next/image';
@@ -47,7 +49,7 @@ function HeaderTitle() {
             src="/assets/emojis/love-you-gesture.png"
             width={48}
             height={48}
-            onLoadingComplete={() => {
+            onLoad={() => {
               controls.start({
                 opacity: 1,
                 y: 0,
@@ -61,7 +63,7 @@ function HeaderTitle() {
       <span className={clsx('text-slate-700', 'dark:text-slate-300')}>
         <m.span
           className={clsx(
-            'mb-4 block text-[2.5rem] font-[1000] leading-none',
+            'mb-4 block text-[2.5rem] leading-none font-[1000]',
             'md:mb-6 md:text-7xl'
           )}
           initial={animation.hide}
@@ -87,7 +89,7 @@ function HeaderTitle() {
           <span className={clsx('lowercase')}>A</span>{' '}
           <strong
             className={clsx(
-              'font-bold lowercase text-slate-700',
+              'font-bold text-slate-700 lowercase',
               'dark:text-slate-300'
             )}
           >

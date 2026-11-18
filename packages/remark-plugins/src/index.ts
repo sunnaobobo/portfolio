@@ -5,14 +5,16 @@ import withFrontMatter from './withFrontMatter';
 import withLayout from './withLayout';
 import withStrict from './withStrict';
 
-import type { PluggableList } from 'unified';
+import type { Preset } from 'unified';
 
-const plugins: PluggableList = [
-  remarkFrontMatter,
-  remarkGfm,
-  withFrontMatter,
-  withStrict,
-  withLayout,
-];
+const preset: Preset = {
+  plugins: [
+    remarkFrontMatter,
+    remarkGfm,
+    withFrontMatter,
+    withStrict,
+    withLayout,
+  ],
+};
 
-export default plugins;
+export default preset;

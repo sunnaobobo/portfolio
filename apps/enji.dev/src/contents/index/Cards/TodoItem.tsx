@@ -24,7 +24,7 @@ function TodoItem({
   return (
     <div
       className={clsx(
-        'pointer-events-none w-full select-none border p-6',
+        'pointer-events-none w-full border p-6 select-none',
         'lg:w-96',
         state.includes('effects') && ['rounded-xl'],
         state.includes('spacing') && [''],

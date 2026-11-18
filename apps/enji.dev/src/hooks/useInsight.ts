@@ -1,4 +1,3 @@
-import { ContentType, ReactionType, ShareType } from '@prisma/client';
 import merge from 'lodash/merge';
 import { useEffect, useRef } from 'react';
 import useSWR from 'swr';
@@ -6,6 +5,11 @@ import useSWR from 'swr';
 import fetcher from '@/utils/fetcher';
 import { postReaction, postShare, postView } from '@/helpers/api';
 
+import type {
+  ContentType,
+  ReactionType,
+  ShareType,
+} from '@/generated/prisma/enums';
 import type { TContentMetaDetail } from '@/types';
 
 const INITIAL_VALUE: TContentMetaDetail = {

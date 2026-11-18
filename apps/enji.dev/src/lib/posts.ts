@@ -4,20 +4,28 @@ import path from 'path';
 
 import type { TPostFrontMatter } from '@/types';
 
-const postsDirectory = path.join(process.cwd(), 'src/pages/blog');
+const postsDirectory = path.join(process.cwd(), 'src/app/(main)/blog');
 
 export const getPostSlugs = () => {
-  const fileNames = fs.readdirSync(postsDirectory);
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
 
-  return fileNames.map((fileName) => fileName.replace(/\.mdx$/, ''));
+  const entries = fs.readdirSync(postsDirectory, { withFileTypes: true });
+
+  return entries
+    .filter(
+      (entry) =>
+        entry.isDirectory() &&
+        fs.existsSync(path.join(postsDirectory, entry.name, 'page.mdx'))
+    )
+    .map((entry) => entry.name);
 };
 
 export const getPostFrontMatter = (slug: string): TPostFrontMatter => {
-  // read markdown file as string
-  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+  const fullPath = path.join(postsDirectory, slug, 'page.mdx');
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-  // use front-matter to parse the post metadata section
   const { attributes } = frontMatter<TPostFrontMatter>(fileContents);
 
   return attributes;
@@ -35,7 +43,6 @@ export const getSortedPosts = () => {
     };
   });
 
-  // sort posts by date
   return allPostsData.sort(
     ({ frontMatter: { date: a } }, { frontMatter: { date: b } }) => {
       if (a < b) {

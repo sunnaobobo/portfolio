@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 
@@ -45,13 +47,13 @@ function TableOfContents({ items = [] }: TableOfContensProps) {
     <nav
       aria-label="Page table of contents"
       className={clsx(
-        'border-divider-light rounded-xl border bg-white',
+        'rounded-xl border border-divider-light bg-white',
         'dark:border-divider-dark dark:bg-[#161e31]'
       )}
     >
       <div
         className={clsx(
-          'border-divider-light flex items-center justify-between border-b px-5 py-3 text-sm font-bold',
+          'flex items-center justify-between border-b border-divider-light px-5 py-3 text-sm font-bold',
           'dark:border-divider-dark'
         )}
       >
@@ -69,7 +71,7 @@ function TableOfContents({ items = [] }: TableOfContensProps) {
           <a
             href="#skip-navigation"
             className={clsx(
-              'border-divider-light text-accent-700 flex h-6 cursor-pointer items-center rounded-full border px-2 text-xs font-normal',
+              'flex h-6 cursor-pointer items-center rounded-full border border-divider-light px-2 text-xs font-normal text-accent-700',
               'dark:border-divider-dark dark:text-accent-400'
             )}
             tabIndex={isScrolled ? 0 : -1}

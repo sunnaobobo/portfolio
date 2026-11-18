@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import Link from 'next/link';
@@ -6,7 +8,9 @@ import useNewPosts from '@/hooks/useNewPosts';
 
 import { relativeTime } from '@/helpers/date';
 
-const animation = {
+import type { Variants } from 'framer-motion';
+
+const animation: Variants = {
   hide: { y: -32, opacity: 0 },
   show: {
     y: 0,
@@ -52,7 +56,7 @@ function NewPosts({ onItemClick = () => {} }: NewPostsProps) {
                     onItemClick();
                   }}
                   className={clsx(
-                    'border-divider-light block rounded-xl border bg-white/50 p-4 text-sm backdrop-blur',
+                    'block rounded-xl border border-divider-light bg-white/50 p-4 text-sm backdrop-blur',
                     'dark:border-divider-dark dark:bg-slate-900/60'
                   )}
                 >
@@ -64,7 +68,7 @@ function NewPosts({ onItemClick = () => {} }: NewPostsProps) {
                   >
                     <span
                       className={clsx(
-                        'bg-accent-100 text-accent-900 flex h-5 items-center rounded-md px-1.5 text-[10px] font-black',
+                        'flex h-5 items-center rounded-md bg-accent-100 px-1.5 text-[10px] font-black text-accent-900',
                         'dark:bg-accent-800 dark:text-accent-100'
                       )}
                     >

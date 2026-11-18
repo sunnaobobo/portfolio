@@ -111,7 +111,7 @@ function FooterDescription() {
       >
         About Me
       </div>
-      <p className={clsx('mb-4 font-normal leading-relaxed')}>
+      <p className={clsx('mb-4 leading-relaxed font-normal')}>
         I&apos;m Enji, a <strong>front-end developer</strong> who loves
         intuitive, clean and modern UI design.
       </p>
@@ -161,7 +161,7 @@ function Footer() {
   return (
     <footer
       className={clsx(
-        'background-grid background-grid--fade-in border-divider-light mt-24 pt-16 text-sm text-slate-900',
+        'background-grid background-grid--fade-in mt-24 border-divider-light pt-16 text-sm text-slate-900',
         'dark:border-divider-dark dark:text-slate-200'
       )}
     >
@@ -240,7 +240,7 @@ function Footer() {
         </div>
         <div
           className={clsx(
-            'border-divider-light flex justify-between border-t py-6 text-xs',
+            'flex justify-between border-t border-divider-light py-6 text-xs',
             'dark:border-divider-dark'
           )}
         >

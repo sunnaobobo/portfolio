@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 
@@ -26,7 +28,7 @@ function Projects() {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={clsx(
-        'stroke-accent-500 -mt-20 h-full opacity-60',
+        '-mt-20 h-full stroke-accent-500 opacity-60',
         'dark:opacity-40'
       )}
     >

@@ -1,11 +1,15 @@
+'use client';
+
 import {
   domAnimation,
   LazyMotion,
   MotionConfig as MotionProvider,
 } from 'framer-motion';
 
+import type { ReactNode } from 'react';
+
 interface FramerMotionProviderProps {
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 function FramerMotionProvider({ children }: FramerMotionProviderProps) {

@@ -1,29 +1,38 @@
 {
   "name": "remark-plugins",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
+  "type": "module",
   "license": "MIT",
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsup --env.NODE_ENV production",
     "dev": "tsup --watch",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "acorn": "^8.8.1",
+    "acorn": "^8.19.0",
     "acorn-jsx": "^5.3.2",
     "front-matter": "^4.0.2",
-    "remark-frontmatter": "^4.0.1",
-    "remark-gfm": "^3.0.1",
-    "slug": "^8.2.2",
-    "zod": "^3.20.2"
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "slug": "^12.0.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/slug": "^5.0.3",
+    "@types/slug": "^5.0.9",
     "eslint-config-typescript": "workspace:*",
     "tsconfig": "workspace:*",
-    "tsup": "^6.5.0",
-    "unified": "^10.1.2"
+    "tsup": "^9.0.0",
+    "typescript": "^6.0.3",
+    "unified": "^11.0.5"
   }
 }

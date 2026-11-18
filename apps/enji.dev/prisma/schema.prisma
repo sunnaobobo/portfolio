@@ -1,14 +1,14 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
 }
 
 model ContentMeta {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
   type      ContentType
   title     String
@@ -26,24 +26,30 @@ enum ContentType {
 }
 
 model View {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
   createdAt DateTime @default(now())
   sessionId String
 
-  contentId String      @db.ObjectId
+  contentId String
   content   ContentMeta @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([contentId])
+  @@index([sessionId])
 }
 
 model Share {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
   type      ShareType? @default(OTHERS)
   createdAt DateTime   @default(now())
   sessionId String
 
-  contentId String      @db.ObjectId
+  contentId String
   content   ContentMeta @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([contentId])
+  @@index([sessionId])
 }
 
 enum ShareType {
@@ -53,7 +59,7 @@ enum ShareType {
 }
 
 model Reaction {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
   count     Int?          @default(1)
   section   String?
@@ -61,8 +67,11 @@ model Reaction {
   createdAt DateTime      @default(now())
   sessionId String
 
-  contentId String      @db.ObjectId
+  contentId String
   content   ContentMeta @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([contentId])
+  @@index([sessionId])
 }
 
 enum ReactionType {

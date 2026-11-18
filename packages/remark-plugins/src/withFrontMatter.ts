@@ -19,60 +19,52 @@ const PostFrontMatter = z.object({
 });
 
 const ProjectFrontMatter = z.object({
-  githubUrl: z.string().url().optional(),
-  npmUrl: z.string().url().optional(),
+  githubUrl: z.url().optional(),
+  npmUrl: z.url().optional(),
   type: z.enum(['package']).default('package'),
 });
 
-const validate = (schema, data) => {
+const validate = <T extends z.ZodType>(
+  schema: T,
+  data: unknown
+): z.infer<T> => {
   try {
     return schema.parse(data);
   } catch (err) {
     if (err instanceof z.ZodError) {
-      throw new Error(JSON.stringify(err.issues, null, 2));
+      throw new Error(JSON.stringify(err.issues, null, 2), { cause: err });
     }
 
-    return null;
+    throw err;
   }
 };
 
-const withFrontMatter = () => (_tree, file) => {
-  const data = getFrontMatter(file.value);
+const withFrontMatter = () => (_tree: any, file: any) => {
+  const data = getFrontMatter(String(file.value));
 
-  // skip front matter validation
   if (Object.keys(data).length === 0) return;
 
   const base = validate(BaseFrontMatter, data);
 
-  let frontMatter;
+  let frontMatter: Record<string, any>;
 
   switch (base.layout) {
-    /**
-     * Specific post frontMatter
-     */
     case 'Post': {
       const post = validate(PostFrontMatter, data);
       frontMatter = { ...base, ...post };
       break;
     }
-    /**
-     * Specific project frontMatter
-     */
     case 'Project': {
       const project = validate(ProjectFrontMatter, data);
       frontMatter = { ...base, ...project };
       break;
     }
-    /**
-     * Default frontMatter
-     */
     default: {
       frontMatter = base;
       break;
     }
   }
 
-  // eslint-disable-next-line no-param-reassign
   file.data['front-matter'] = frontMatter;
 };
 

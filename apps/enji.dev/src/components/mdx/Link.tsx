@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
@@ -36,8 +38,8 @@ export function QuickView({ href, children }: QuickViewProps) {
           type="button"
           onClick={handleQuickView}
           className={clsx(
-            'bg-accent-600/[0.08] text-accent-600 inline-flex h-6 items-center gap-1 rounded-full px-2 text-[13px] font-medium',
-            'dark:text-accent-400 dark:dark:bg-accent-400/10 dark:font-normal'
+            'inline-flex h-6 items-center gap-1 rounded-full bg-accent-600/[0.08] px-2 text-[13px] font-medium text-accent-600',
+            'dark:dark:bg-accent-400/10 dark:font-normal dark:text-accent-400'
           )}
         >
           Quick View

@@ -1,14 +1,15 @@
-/* eslint-disable react/no-array-index-key */
-import { Tab } from '@headlessui/react';
+'use client';
+
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import clsx from 'clsx';
-import { Children } from 'react';
+import { Children, isValidElement } from 'react';
 
 import { Pre } from '@/components/mdx/custom-components/Pre';
 
 import { formatLang } from '@/helpers/mdx';
 
 import type { PreProps } from '@/components/mdx/custom-components/Pre';
-import type { PropsWithChildren, ReactElement } from 'react';
+import type { PropsWithChildren, ReactElement, ReactNode } from 'react';
 
 function CodeGroupFile({ children = null }: PropsWithChildren) {
   return (
@@ -33,7 +34,7 @@ function CodeGroupTab({ children = null }: PropsWithChildren) {
 }
 
 interface CodeGroupProps {
-  children: ReactElement<PreProps> | ReactElement<PreProps>[];
+  children: ReactNode;
   variant?: 'tab' | 'files';
 }
 
@@ -45,9 +46,20 @@ function CodeGroup({ variant = 'tab', children }: CodeGroupProps) {
   }> = [];
 
   Children.forEach(children, (child) => {
-    if (child.type === Pre) {
-      const title = child.props['data-title'] || '';
-      const language = child.props['data-language'] || '';
+    if (!isValidElement<PreProps>(child)) {
+      return;
+    }
+
+    const childProps = (child.props || {}) as PreProps;
+    const isCodeBlock =
+      child.type === Pre ||
+      typeof childProps['data-language'] !== 'undefined' ||
+      typeof childProps['data-lines'] !== 'undefined' ||
+      typeof childProps['data-title'] !== 'undefined';
+
+    if (isCodeBlock) {
+      const title = childProps['data-title'] || '';
+      const language = childProps['data-language'] || '';
 
       const { icon } = formatLang(language, title);
 
@@ -65,30 +77,30 @@ function CodeGroup({ variant = 'tab', children }: CodeGroupProps) {
         variant === 'tab' ? 'mdx-code-group--tab' : 'mdx-code-group--files',
       ])}
     >
-      <Tab.Group manual>
+      <TabGroup manual>
         <div className={clsx('mdx-code-group__header-wrapper')}>
-          <Tab.List className={clsx('mdx-code-group__header')}>
+          <TabList className={clsx('mdx-code-group__header')}>
             {tab.map(({ title, icon }, idx) =>
               variant === 'tab' ? (
-                <CodeGroupTab key={idx}>
+                <CodeGroupTab key={`${title}-${idx}`}>
                   {icon}
                   {title}
                 </CodeGroupTab>
               ) : (
-                <CodeGroupFile key={idx}>
+                <CodeGroupFile key={`${title}-${idx}`}>
                   {icon}
                   {title}
                 </CodeGroupFile>
               )
             )}
-          </Tab.List>
+          </TabList>
         </div>
-        <Tab.Panels className={clsx('mdx-code-group__content')}>
-          {tab.map(({ panel }, idx) => (
-            <Tab.Panel key={idx}>{panel}</Tab.Panel>
+        <TabPanels className={clsx('mdx-code-group__content')}>
+          {tab.map(({ title, panel }, idx) => (
+            <TabPanel key={`${title}-${idx}`}>{panel}</TabPanel>
           ))}
-        </Tab.Panels>
-      </Tab.Group>
+        </TabPanels>
+      </TabGroup>
     </div>
   );
 }

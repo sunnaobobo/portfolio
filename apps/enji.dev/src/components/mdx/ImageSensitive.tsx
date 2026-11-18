@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+'use client';
 
 import clsx from 'clsx';
 import { useState } from 'react';
@@ -14,6 +14,7 @@ type ImageSensitiveProps = ImageProps & {
 
 export default function ImageSensitive({
   message = '',
+  alt = '',
   ...props
 }: ImageSensitiveProps) {
   const [isShown, setShown] = useState<boolean>(false);
@@ -23,8 +24,8 @@ export default function ImageSensitive({
       <button
         type="button"
         className={clsx(
-          'border-divider-light absolute bottom-4 right-4 z-20 mt-4 flex h-8 items-center rounded-full border bg-white/70 px-4 text-sm',
-          'md:bottom-6 md:right-6',
+          'absolute right-4 bottom-4 z-20 mt-4 flex h-8 items-center rounded-full border border-divider-light bg-white/70 px-4 text-sm',
+          'md:right-6 md:bottom-6',
           'dark:border-divider-dark dark:bg-slate-900/80'
         )}
         onClick={() => setShown(!isShown)}
@@ -34,7 +35,7 @@ export default function ImageSensitive({
       {!isShown && (
         <div
           className={clsx(
-            'border-divider-light background-grid absolute inset-0 z-10 flex items-center justify-center rounded-lg border',
+            'background-grid absolute inset-0 z-10 flex items-center justify-center rounded-lg border border-divider-light',
             'dark:border-divider-dark'
           )}
         >
@@ -53,7 +54,7 @@ export default function ImageSensitive({
           </div>
         </div>
       )}
-      <Image immersive={isShown} {...props} />
+      <Image alt={alt} immersive={isShown} {...props} />
     </div>
   );
 }

@@ -1,11 +1,14 @@
-/* eslint-disable no-template-curly-in-string */
 import jsonata from 'jsonata';
 
 import dayjs from '@/utils/dayjs';
 import { prisma } from '@/utils/prisma';
 
+import type {
+  ContentType,
+  ReactionType,
+  ShareType,
+} from '@/generated/prisma/enums';
 import type { TContentActivity, TContentMeta, TReaction } from '@/types';
-import type { ContentType, ReactionType, ShareType } from '@prisma/client';
 
 export const getAllContentMeta = async (): Promise<
   Record<string, TContentMeta>
@@ -136,7 +139,7 @@ export const getContentActivity = async (): Promise<TContentActivity[]> => {
   // transform result
   const transformed = await jsonata(expression).evaluate(result);
 
-  return transformed;
+  return transformed ?? [];
 };
 
 export const getNewPosts = async (): Promise<
@@ -199,7 +202,7 @@ export const getReactions = async (slug: string): Promise<TReaction> => {
   // transform result
   const transformed = await jsonata(expression).evaluate(result);
 
-  return transformed;
+  return transformed ?? { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
 };
 
 export const getSectionMeta = async (
@@ -249,7 +252,7 @@ export const getSectionMeta = async (
   // transform result
   const transformed = await jsonata(expression).evaluate(result);
 
-  return transformed;
+  return transformed ?? {};
 };
 
 export const getReactionsBy = async (
@@ -283,7 +286,7 @@ export const getReactionsBy = async (
   // transform result
   const transformed = await jsonata(expression).evaluate(result);
 
-  return transformed;
+  return transformed ?? { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
 };
 
 export const setReaction = async ({

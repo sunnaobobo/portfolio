@@ -1,5 +1,6 @@
-import { Menu } from '@headlessui/react';
-import { ShareType } from '@prisma/client';
+'use client';
+
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import { forwardRef } from 'react';
@@ -13,6 +14,7 @@ import {
 
 import useCurrentUrl from '@/hooks/useCurrentUrl';
 
+import type { ShareType } from '@/generated/prisma/enums';
 import type { PropsWithChildren, Ref } from 'react';
 
 interface ShareItemProps extends PropsWithChildren {
@@ -43,6 +45,8 @@ const ShareItemButton = forwardRef(
   )
 );
 
+ShareItemButton.displayName = 'ShareItemButton';
+
 interface ShareItemLinkProps extends ShareItemProps {
   href: string;
   onClick: () => void;
@@ -70,6 +74,8 @@ const ShareItemLink = forwardRef(
   )
 );
 
+ShareItemLink.displayName = 'ShareItemLink';
+
 const animation = {
   hide: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.18 } },
@@ -88,7 +94,7 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
       await navigator.clipboard.writeText(content);
 
       onItemClick('CLIPBOARD');
-    } catch (err) {
+    } catch {
       //
     }
   };
@@ -101,7 +107,7 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
     <Menu>
       {({ open }) => (
         <>
-          <Menu.Button
+          <MenuButton
             title="Share"
             aria-label="Share"
             className={clsx(
@@ -110,30 +116,30 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
             )}
           >
             <ShareIcon className={clsx('h-5 w-5')} />
-          </Menu.Button>
+          </MenuButton>
           {open && (
-            <Menu.Items
+            <MenuItems
               static
               as={m.div}
               variants={animation}
               initial="hide"
               animate="show"
               className={clsx(
-                'border-divider-light absolute bottom-24 right-2 z-[902] flex w-56 flex-col overflow-hidden rounded-2xl border bg-white/70 pb-2 pt-1 backdrop-blur',
+                'absolute right-2 bottom-24 z-[902] flex w-56 flex-col overflow-hidden rounded-2xl border border-divider-light bg-white/70 pt-1 pb-2 backdrop-blur',
                 'dark:border-divider-dark dark:bg-slate-900/80'
               )}
             >
               <div
                 className={clsx(
-                  'px-4 py-3 text-center text-[13px] text-lg font-bold'
+                  'px-4 py-3 text-center text-lg text-[13px] font-bold'
                 )}
               >
                 Share this on
               </div>
-              <Menu.Item>
-                {({ active }) => (
+              <MenuItem>
+                {({ focus }) => (
                   <ShareItemLink
-                    active={active}
+                    active={focus}
                     href={`https://twitter.com/intent/tweet?via=enjidev&url=${currentUrl}`}
                     onClick={handleTwitter}
                   >
@@ -144,22 +150,22 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
                     </span>
                   </ShareItemLink>
                 )}
-              </Menu.Item>
+              </MenuItem>
               <div
                 className={clsx(
-                  'border-divider-light my-2 border-t',
+                  'my-2 border-t border-divider-light',
                   'dark:border-divider-dark'
                 )}
               />
-              <Menu.Item>
-                {({ active }) => (
-                  <ShareItemButton active={active} onClick={handleCopy}>
+              <MenuItem>
+                {({ focus }) => (
+                  <ShareItemButton active={focus} onClick={handleCopy}>
                     <NoteIcon className={clsx('h-4 w-4')} />
                     Copy link
                   </ShareItemButton>
                 )}
-              </Menu.Item>
-            </Menu.Items>
+              </MenuItem>
+            </MenuItems>
           )}
         </>
       )}

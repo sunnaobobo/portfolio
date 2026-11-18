@@ -29,7 +29,7 @@ function SectionTitle({
     <div className={clsx('content-wrapper')}>
       <Heading
         className={clsx(
-          'text-accent-600 mb-2 block font-black',
+          'mb-2 block font-black text-accent-600',
           'lg:mb-4',
           'dark:text-accent-400'
         )}

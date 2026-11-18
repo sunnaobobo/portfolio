@@ -1,16 +1,20 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+
+import type { ReactNode } from 'react';
 
 interface ColorAccentProviderProps {
   defaultScheme?: 'violet' | 'blue';
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 function ColorAccentProvider({
   defaultScheme = 'violet',
   children,
 }: ColorAccentProviderProps) {
-  const { pathname } = useRouter();
+  const pathname = usePathname() ?? '';
 
   useEffect(() => {
     document.documentElement.setAttribute('data-accent', defaultScheme);
@@ -20,7 +24,7 @@ function ColorAccentProvider({
     }
   }, [pathname, defaultScheme]);
 
-  return children;
+  return <>{children}</>;
 }
 
 export default ColorAccentProvider;

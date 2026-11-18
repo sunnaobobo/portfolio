@@ -41,8 +41,8 @@ function PageWithMDX({
         </div>
         <div
           className={clsx(
-            'border-divider-light hidden border-l',
-            'dark:border-divider-dark lg:block'
+            'hidden border-l border-divider-light',
+            'lg:block dark:border-divider-dark'
           )}
         />
       </div>

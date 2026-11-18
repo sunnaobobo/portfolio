@@ -1,9 +1,11 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { usePathname } from 'next/navigation';
 
 import { getBaseUrl } from '@/helpers/url';
 
 export default function useCurrentUrl() {
-  const { pathname } = useRouter();
+  const pathname = usePathname() ?? '';
 
   return `${getBaseUrl()}${pathname}`;
 }

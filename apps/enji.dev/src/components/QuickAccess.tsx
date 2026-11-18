@@ -1,4 +1,6 @@
-import { Dialog } from '@headlessui/react';
+'use client';
+
+import { Dialog, DialogPanel } from '@headlessui/react';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import { useRef } from 'react';
@@ -17,7 +19,7 @@ const animation = {
 };
 
 function QuickAccess() {
-  const closeButtonRef = useRef(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const { isQuickAccessOpen, setQuickAccessOpen } = useGlobal();
 
   return isQuickAccessOpen ? (
@@ -39,7 +41,7 @@ function QuickAccess() {
         aria-hidden={!isQuickAccessOpen}
       />
       <div className={clsx('fixed inset-0')}>
-        <Dialog.Panel>
+        <DialogPanel>
           <div
             className={clsx(
               'pointer-events-none absolute inset-x-4 top-8 flex justify-end',
@@ -64,8 +66,8 @@ function QuickAccess() {
           <div
             data-accent="violet"
             className={clsx(
-              'fixed bottom-0 left-2 right-2 top-20 flex flex-col gap-6',
-              'sm:left-auto sm:right-6 sm:top-24 sm:w-[320px]'
+              'fixed top-20 right-2 bottom-0 left-2 flex flex-col gap-6',
+              'sm:top-24 sm:right-6 sm:left-auto sm:w-[320px]'
             )}
           >
             <div className={clsx('')}>
@@ -95,7 +97,7 @@ function QuickAccess() {
               </m.div>
             </div>
           </div>
-        </Dialog.Panel>
+        </DialogPanel>
       </div>
     </Dialog>
   ) : null;

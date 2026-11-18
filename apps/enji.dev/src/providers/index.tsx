@@ -1,7 +1,7 @@
-import { MDXProvider } from '@mdx-js/react';
+'use client';
+
 import { ThemeProvider } from 'next-themes';
 
-import mdxCustomComponents from '@/components/mdx/custom-components';
 import ColorAccentProvider from '@/providers/ColorAccentProvider';
 import FocusModeProvider from '@/providers/FocusModeProvider';
 import FramerMotionProvider from '@/providers/FramerMotionProvider';
@@ -15,11 +15,7 @@ function Provider({ children = null }: PropsWithChildren) {
       <ThemeProvider attribute="class" disableTransitionOnChange>
         <FocusModeProvider>
           <ColorAccentProvider defaultScheme="violet">
-            <GlobalStateProvider>
-              <MDXProvider components={mdxCustomComponents}>
-                {children}
-              </MDXProvider>
-            </GlobalStateProvider>
+            <GlobalStateProvider>{children}</GlobalStateProvider>
           </ColorAccentProvider>
         </FocusModeProvider>
       </ThemeProvider>

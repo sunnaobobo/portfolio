@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import Link from 'next/link';
@@ -57,7 +59,7 @@ function PostPreview({
           >
             <div
               className={clsx(
-                'absolute inset-y-0 w-10 -rotate-45 scale-[4] bg-black opacity-[0.08]',
+                'absolute inset-y-0 w-10 scale-[4] -rotate-45 bg-black opacity-[0.08]',
                 'dark:bg-white dark:opacity-[0.14]'
               )}
             />
@@ -68,7 +70,7 @@ function PostPreview({
             className={clsx(
               'relative mb-4 flex items-center gap-2 font-semibold text-slate-500',
               'sm:text-slate-500',
-              'dark:sm:text-accent-400 dark:text-slate-400'
+              'dark:text-slate-400 dark:sm:text-accent-400'
             )}
           >
             <PinIcon className={clsx('h-5 w-5')} />
@@ -134,13 +136,13 @@ function PostPreview({
         </div>
         <div
           className={clsx(
-            'text-accent-600 items-center gap-1 text-sm font-semibold',
+            'items-center gap-1 text-sm font-semibold text-accent-600',
             'dark:text-accent-400',
             pinned ? ['flex', 'sm:hidden'] : 'flex'
           )}
         >
           read more{' '}
-          <ChevronRightIcon className="group-hover:animate-bounce-x mt-1 h-3 w-3 transition" />
+          <ChevronRightIcon className="mt-1 h-3 w-3 transition group-hover:animate-bounce-x" />
         </div>
       </Link>
     </article>

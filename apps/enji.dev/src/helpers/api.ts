@@ -1,7 +1,11 @@
-import { ContentType, ReactionType, ShareType } from '@prisma/client';
 import axios from 'axios';
 
-import { TApiResponse } from '@/types';
+import type {
+  ContentType,
+  ReactionType,
+  ShareType,
+} from '@/generated/prisma/enums';
+import type { TApiResponse } from '@/types';
 
 export const postReaction = async ({
   slug,
@@ -26,7 +30,7 @@ export const postReaction = async ({
       count,
       section,
     });
-  } catch (err) {
+  } catch {
     //
   }
 };
@@ -48,7 +52,7 @@ export const postShare = async ({
       contentTitle,
       type,
     });
-  } catch (err) {
+  } catch {
     //
   }
 };
@@ -67,7 +71,7 @@ export const postView = async ({
       contentType,
       contentTitle,
     });
-  } catch (err) {
+  } catch {
     //
   }
 };

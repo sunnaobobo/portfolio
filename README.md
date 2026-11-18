@@ -42,17 +42,17 @@ cd ./enji.dev
 Next, copy the development version of the `env` file:
 
 ```
-cp ./apps/enji.dev/env.example ./apps/enji.dev/env.local
+cp ./apps/enji.dev/.env.example ./apps/enji.dev/.env.local
 ```
 
-Now, you have the `env.local` file ready for configuration:
+Now, you have the `.env.local` file ready for configuration:
 
 ```
-DATABASE_URL = your-database-connection-string
-SALT_IP_ADDRESS = super-secret
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/portfolio?schema=public"
+SALT_IP_ADDRESS="super-secret"
 ```
 
-For the `DATABASE_URL` use your database connection string. I personally use the free version of [MongoDB](https://www.mongodb.com/), and you can do the same by creating a database there and [adding the connection string](https://www.mongodb.com/basics/mongodb-connection-string) to the `env.local`.
+For the `DATABASE_URL` use your PostgreSQL connection string (e.g., local PostgreSQL, [Supabase](https://supabase.com/), or [Neon](https://neon.tech/)). After setting `DATABASE_URL`, run `pnpm --filter enji.dev db:migrate` to initialize the database schema.
 
 As for `SALT_IP_ADDRESS`, feel free to fill it with some of your secret words. It acts as a salt for hashing users' IP addresses.
 

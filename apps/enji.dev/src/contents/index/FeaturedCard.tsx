@@ -12,26 +12,26 @@ function FeaturedCard({ icon, title, desc }: FeaturedCardProps) {
   return (
     <div
       className={clsx(
-        'border-divider-light relative z-10 flex-1 rounded-2xl border bg-white',
+        'relative z-10 flex-1 rounded-2xl border border-divider-light bg-white',
         'dark:border-divider-dark dark:bg-slate-900'
       )}
     >
       <div
         className={clsx(
-          'border-divider-light absolute inset-x-0 inset-y-8 z-[-1] border-t',
+          'absolute inset-x-0 inset-y-8 z-[-1] border-t border-divider-light',
           'dark:border-divider-dark'
         )}
       />
       <div
         className={clsx(
-          'border-divider-light absolute inset-x-8 inset-y-0 z-[-1] border-l',
+          'absolute inset-x-8 inset-y-0 z-[-1] border-l border-divider-light',
           'dark:border-divider-dark'
         )}
       />
       <div className={clsx('-mt-0.5')}>
         <div
           className={clsx(
-            'ml-4 mr-2 mt-4 flex items-center gap-6 rounded-full bg-slate-100',
+            'mt-4 mr-2 ml-4 flex items-center gap-6 rounded-full bg-slate-100',
             'dark:bg-slate-800'
           )}
         >

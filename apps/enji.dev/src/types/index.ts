@@ -1,4 +1,8 @@
-import type { ContentType, ReactionType, ShareType } from '@prisma/client';
+import type {
+  ContentType,
+  ReactionType,
+  ShareType,
+} from '@/generated/prisma/enums';
 
 export type TApiResponse = {
   message: string;
@@ -89,5 +93,4 @@ export type TContentActivityReaction = {
 };
 
 export type TContentActivity =
-  | TContentActivityShares
-  | TContentActivityReaction;
+  TContentActivityShares | TContentActivityReaction;

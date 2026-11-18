@@ -64,7 +64,7 @@ export function DnD({ children = null }: PropsWithChildren) {
   return (
     <div
       className={clsx(
-        'border-divider-light mdx-dnd flex flex-col gap-6 rounded-xl',
+        'mdx-dnd flex flex-col gap-6 rounded-xl border-divider-light',
         'lg:flex-row',
         'dark:border-divider-dark'
       )}
@@ -82,8 +82,8 @@ export function ItemTag({ children = null }: PropsWithChildren) {
   return (
     <div
       className={clsx(
-        'bg-accent-600/[0.08] text-accent-600 inline-flex h-6 items-center gap-1 rounded-full px-2 text-[13px] font-medium',
-        'dark:text-accent-400 dark:dark:bg-accent-400/10 dark:font-normal'
+        'inline-flex h-6 items-center gap-1 rounded-full bg-accent-600/[0.08] px-2 text-[13px] font-medium text-accent-600',
+        'dark:dark:bg-accent-400/10 dark:font-normal dark:text-accent-400'
       )}
     >
       #{children}
@@ -103,14 +103,14 @@ export function Item({ children = null }: PropsWithChildren) {
       >
         <div
           className={clsx(
-            'absolute -ml-0.5 mt-2.5 h-4 w-4 rounded-full border-2 border-slate-700 bg-white',
-            'md:-ml-3 md:mt-2 md:h-5 md:w-5',
+            'absolute mt-2.5 -ml-0.5 h-4 w-4 rounded-full border-2 border-slate-700 bg-white',
+            'md:mt-2 md:-ml-3 md:h-5 md:w-5',
             'dark:border-slate-300 dark:bg-slate-900'
           )}
         />
         <div
           className={clsx(
-            'absolute z-[-1] -ml-2 mt-4 w-8 border border-slate-700',
+            'absolute z-[-1] mt-4 -ml-2 w-8 border border-slate-700',
             'md:-ml-4 md:w-10 lg:w-12',
             'dark:border-slate-300'
           )}
@@ -157,7 +157,7 @@ export function Items({
       </div>
       <div
         className={clsx(
-          'border-divider-light items-stretch border',
+          'items-stretch border border-divider-light',
           'dark:border-divider-dark'
         )}
       />
@@ -173,7 +173,7 @@ export function Items({
   );
 }
 
-export default {
+const TIL = {
   Items,
   Item,
   ItemTags,
@@ -182,3 +182,5 @@ export default {
   Do,
   Dont,
 };
+
+export default TIL;

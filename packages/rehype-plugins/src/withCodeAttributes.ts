@@ -1,45 +1,39 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable prefer-destructuring */
-
 import { visit } from 'unist-util-visit';
 
 const withCodeAttributes = () => (tree: any) => {
-  visit(tree, 'element', (node) => {
+  visit(tree, 'element', (node: any) => {
     if (node.tagName === 'pre') {
-      const attributes: {
-        [key: string]: string;
-      } = {};
+      const attributes: Record<string, string | number> = {};
 
-      const firstNode = node.children[0];
+      const firstNode = node.children?.[0];
 
       if (firstNode && firstNode.tagName === 'code') {
-        // lines attribute
-        const linesCount = firstNode.children.length;
+        const linesCount = firstNode.children?.length ?? 0;
         if (linesCount) {
           attributes.lines = linesCount;
         }
 
-        // language attribute
-        const lang =
-          node.properties.className[0]?.replace('language-', '') || '';
+        const classNames = Array.isArray(node.properties?.className)
+          ? node.properties.className
+          : [];
+        const lang = String(classNames[0] ?? '').replace('language-', '');
         if (lang) {
           attributes.language = lang;
         }
 
-        const meta = firstNode.data?.meta || '';
+        const meta = String(firstNode.data?.meta || '');
         const metas = meta.match(/[^{}]+(?=})/g) || [];
 
-        // dynamic attributes
         metas.forEach((attr: string) => {
-          if (attr.indexOf(':')) {
-            const key = attr.split(':')[0];
-            const val = attr.split(':')[1];
-
-            attributes[key] = val;
+          if (attr.includes(':')) {
+            const [key, val] = attr.split(':');
+            if (key && typeof val !== 'undefined') {
+              attributes[key] = val;
+            }
           }
         });
 
-        // apply attributes
+        node.properties = node.properties || {};
         Object.keys(attributes).forEach((key) => {
           node.properties[`data-${key}`] = attributes[key];
         });

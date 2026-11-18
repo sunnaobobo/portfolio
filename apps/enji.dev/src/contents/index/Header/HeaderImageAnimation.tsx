@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 
@@ -32,7 +34,7 @@ function HeaderImageAnimation({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={clsx(
-        'stroke-accent-500 h-[526px] w-[457px] opacity-60',
+        'h-[526px] w-[457px] stroke-accent-500 opacity-60',
         'dark:opacity-40'
       )}
       onAnimationComplete={onAnimationComplete}

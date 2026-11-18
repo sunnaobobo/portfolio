@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 
 import { QuickAccessIcon } from '@/components/Icons';

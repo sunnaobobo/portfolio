@@ -47,20 +47,20 @@ function AppWindow({
     <div
       role="presentation"
       className={clsx(
-        'border-divider-light pointer-events-none flex h-full w-full select-none flex-col overflow-hidden rounded-xl border bg-white',
+        'pointer-events-none flex h-full w-full flex-col overflow-hidden rounded-xl border border-divider-light bg-white select-none',
         'dark:border-divider-dark dark:bg-[#0c1222]'
       )}
     >
       <div
         className={clsx(
-          'border-divider-light relative box-border border-b',
+          'relative box-border border-b border-divider-light',
           'dark:border-divider-dark',
           [isWithBrowserTabs ? 'h-20' : 'h-10']
         )}
       >
         <div
           className={clsx(
-            'absolute left-4 top-0 flex h-10 items-center gap-1.5'
+            'absolute top-0 left-4 flex h-10 items-center gap-1.5'
           )}
         >
           <div
