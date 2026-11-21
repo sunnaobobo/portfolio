@@ -7,9 +7,12 @@ import Toast from '@/components/Toast';
 const LOCAL_STORAGE_KEY = 'ng-focus-mode';
 
 function useFocusMode() {
-  const [focusMode, setStoredFocusMode] = useLocalStorageState(LOCAL_STORAGE_KEY, {
-    defaultValue: false,
-  });
+  const [focusMode, setStoredFocusMode] = useLocalStorageState(
+    LOCAL_STORAGE_KEY,
+    {
+      defaultValue: false,
+    }
+  );
 
   const setFocusMode = useCallback(
     (enabled: boolean) => {
