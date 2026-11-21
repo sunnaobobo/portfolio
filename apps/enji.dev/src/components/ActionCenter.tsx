@@ -2,11 +2,11 @@
 
 import clsx from 'clsx';
 import { m } from 'framer-motion';
-import { useTheme } from 'next-themes';
 
 import { DarkIcon, EyeIcon, EyeSlash, LightIcon } from '@/components/Icons';
 
 import useFocusMode from '@/hooks/useFocusMode';
+import useTheme from '@/hooks/useTheme';
 
 import type { Variants } from 'framer-motion';
 import type { PropsWithChildren, ReactElement } from 'react';
