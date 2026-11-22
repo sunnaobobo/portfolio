@@ -68,11 +68,11 @@ function NewPosts({ onItemClick = () => {} }: NewPostsProps) {
                   >
                     <span
                       className={clsx(
-                        'flex h-5 items-center rounded-md bg-accent-100 px-1.5 text-[10px] font-black text-accent-900',
+                        'flex h-5 items-center rounded-md bg-accent-100 px-2 text-[11px] font-bold text-accent-900',
                         'dark:bg-accent-800 dark:text-accent-100'
                       )}
                     >
-                      NEW POST &nbsp; 🔥
+                      最新文章 &nbsp; 🔥
                     </span>
                     <span>{relativeTime(createdAt)}</span>
                   </div>

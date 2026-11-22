@@ -12,7 +12,7 @@ type QuickViewProps = LinkProps & PropsWithChildren;
 
 export function QuickView({ href, children }: QuickViewProps) {
   const handleQuickView = () => {
-    const title = 'Quick Preview';
+    const title = '快速预览';
     const width = 480;
     const height = window.innerHeight - 100;
     const left = window.innerWidth - (width + 50);
@@ -42,7 +42,7 @@ export function QuickView({ href, children }: QuickViewProps) {
             'dark:dark:bg-accent-400/10 dark:font-normal dark:text-accent-400'
           )}
         >
-          Quick View
+          快速预览
           <ExternalLink className={clsx('h-3.5 w-3.5')} />
         </button>
       </span>

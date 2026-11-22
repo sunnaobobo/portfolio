@@ -21,7 +21,7 @@ export function buildPageMetadata({
 }): Metadata {
   const resolvedOgImage =
     ogImage || getPageOgImageUrl({ title, description }).default;
-  const imageAlt = `Image with "${title}" text.`;
+  const imageAlt = `包含“${title}”文字的封面图`;
 
   return {
     title: overrideTitle ? { absolute: title } : title,
@@ -40,8 +40,6 @@ export function buildPageMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@enjidev',
-      creator: '@enjidev',
       title,
       description,
       images: [

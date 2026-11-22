@@ -2,7 +2,7 @@ import { getPostSlugs } from '@/lib/posts';
 
 import type { MetadataRoute } from 'next';
 
-const SITE_URL = 'https://www.enji.dev';
+const SITE_URL = 'https://portfolio.sunnao.wtf';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -48,12 +48,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${SITE_URL}/credits`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.6,
-    },
-    {
-      url: `${SITE_URL}/docs/tailwindcss-accent`,
       lastModified: now,
       changeFrequency: 'daily',
       priority: 0.6,

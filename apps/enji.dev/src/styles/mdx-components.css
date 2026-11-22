@@ -44,8 +44,8 @@
 }
 
 .mdx-heading--h2 {
-  @apply mt-6 mb-4 scroll-mt-[86px] text-2xl;
-  @apply md:mt-7 md:mb-5 md:text-3xl lg:-ml-12;
+  @apply mt-8 mb-4 scroll-mt-[86px] text-2xl leading-snug;
+  @apply md:mt-9 md:mb-5 md:text-[1.75rem] lg:-ml-12;
 
   .mdx-heading__anchor {
     @apply h-8 w-8 text-current;
@@ -53,8 +53,8 @@
 }
 
 .mdx-heading--h3 {
-  @apply mt-5 mb-4 scroll-mt-[86px] text-[1.2rem];
-  @apply md:mt-6 md:mb-5 md:text-[1.35rem] lg:-ml-11;
+  @apply mt-6 mb-4 scroll-mt-[86px] text-[1.15rem] leading-snug;
+  @apply md:mt-7 md:mb-5 md:text-[1.3rem] lg:-ml-11;
 
   .mdx-heading__anchor {
     @apply h-7 w-7;
@@ -170,12 +170,12 @@
 }
 
 .mdx-code__copy-button-message {
-  @apply pointer-events-none absolute -left-16 -ml-2 w-16 translate-x-2 rounded-md bg-accent-600 px-2 py-1 text-xs font-bold text-accent-200 opacity-0 transition;
+  @apply pointer-events-none absolute -left-2 -translate-x-[calc(100%-8px)] rounded-md bg-accent-600 px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-white opacity-0 transition;
   @apply dark:bg-accent-300 dark:text-accent-900;
 }
 
 .mdx-code__copy-button-message-copied {
-  @apply translate-x-0 opacity-100;
+  @apply -translate-x-full opacity-100;
 }
 
 .mdx-code__footer {

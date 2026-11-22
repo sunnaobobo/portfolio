@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    host: 'https://www.enji.dev',
-    sitemap: 'https://www.enji.dev/sitemap.xml',
+    host: 'https://portfolio.sunnao.wtf',
+    sitemap: 'https://portfolio.sunnao.wtf/sitemap.xml',
   };
 }

@@ -21,28 +21,28 @@ function Callout({
   switch (variant) {
     case 'neutral':
       data = {
-        title: 'Note',
+        title: '提示',
         icon: <NoteIcon />,
         modifier: '',
       };
       break;
     case 'info':
       data = {
-        title: 'Info',
+        title: '说明',
         icon: <InfoIcon />,
         modifier: 'mdx-callout--info',
       };
       break;
     case 'warning':
       data = {
-        title: 'Heads Up',
+        title: '注意',
         icon: <WarningIcon />,
         modifier: 'mdx-callout--warning',
       };
       break;
     case 'danger':
       data = {
-        title: 'Important',
+        title: '重要提醒',
         icon: <ErrorIcon />,
         modifier: 'mdx-callout--danger',
       };

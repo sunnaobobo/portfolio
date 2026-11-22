@@ -56,8 +56,8 @@ function QuickAccess() {
                 'hover:bg-slate-300/70 sm:ml-0',
                 'dark:bg-slate-800/50 dark:text-slate-100 dark:hover:bg-slate-700/50'
               )}
-              aria-label="Close Quick Access"
-              title="Close Quick Access"
+              aria-label="关闭快捷入口"
+              title="关闭快捷入口"
               onClick={() => setQuickAccessOpen(false)}
             >
               <XIcon className={clsx('h-5 w-5')} />

@@ -48,7 +48,7 @@ function GitHubWireframe({
             'dark:border-divider-dark'
           )}
         >
-          public
+          公开
         </div>
       </div>
       <div className={clsx('mt-2')}>
@@ -59,7 +59,7 @@ function GitHubWireframe({
           <SkeletonSm />
           {license ? (
             <div className={clsx('')}>
-              <p>{license} license</p>
+              <p>{license} 开源协议</p>
             </div>
           ) : (
             <SkeletonSm w={64} />

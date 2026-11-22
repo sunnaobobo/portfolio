@@ -98,8 +98,8 @@
   }
 
   .nav-link {
-    @apply flex h-9 items-center gap-1 rounded-xl px-2 text-[13px] font-bold text-accent-600;
-    @apply dark:font-semibold dark:text-accent-400;
+    @apply flex h-9 items-center gap-1 rounded-xl px-2.5 text-sm font-semibold whitespace-nowrap text-accent-600;
+    @apply dark:font-medium dark:text-accent-400;
 
     &:hover,
     &[aria-expanded='true'] {
@@ -109,7 +109,7 @@
   }
 
   .nav-link--label {
-    @apply rounded-full bg-accent-600/[0.08] px-5;
+    @apply rounded-full bg-accent-600/[0.08] px-4;
     @apply dark:bg-accent-400/10;
 
     svg {
@@ -188,8 +188,8 @@
   }
 
   .footer-link__label {
-    @apply rounded-full border border-divider-light px-2 py-0 text-[10px] text-slate-900 uppercase;
-    @apply dark:text-slate-200;
+    @apply rounded-full border border-divider-light px-2 py-0.5 text-[11px] leading-none font-medium text-slate-700;
+    @apply dark:border-divider-dark dark:text-slate-300;
   }
 
   .footer-link--soon {

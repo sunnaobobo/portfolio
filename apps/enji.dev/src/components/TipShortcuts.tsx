@@ -14,19 +14,19 @@ const shortcuts: Array<{
   keys: Array<string>;
 }> = [
   {
-    title: 'Open Quick Access',
+    title: '打开快捷入口',
     keys: ['Q'],
   },
   {
-    title: 'Close Quick Access',
+    title: '关闭快捷入口',
     keys: ['Q', 'Esc'],
   },
   {
-    title: 'Toggle Dark Mode',
+    title: '切换深色模式',
     keys: ['D'],
   },
   {
-    title: 'Toggle Focus',
+    title: '切换专注模式',
     keys: ['F'],
   },
 ];
@@ -51,12 +51,17 @@ function TipShortcuts() {
       transition={{ delayChildren: 0.7, staggerChildren: 0.14 }}
       className={clsx('')}
     >
-      <div className={clsx('mb-4 flex items-center gap-4 text-xl font-bold')}>
-        <KeyboardIcon className={clsx('h-8 w-8')} />
-        TIP: Shortcuts
+      <div className={clsx('mb-4 flex items-center gap-3 text-xl font-bold')}>
+        <KeyboardIcon className={clsx('h-7 w-7')} />
+        键盘快捷键提示
       </div>
-      <p className={clsx('mb-4 text-sm text-slate-700', 'dark:text-slate-400')}>
-        Navigate the site with ease using keyboard shortcuts.
+      <p
+        className={clsx(
+          'mb-4 text-sm leading-relaxed text-slate-700',
+          'dark:text-slate-400'
+        )}
+      >
+        使用快捷键，更高效地浏览本站。
       </p>
       <div className={clsx('flex flex-col text-[13px]')}>
         {shortcuts.map(({ title, keys }) => (
@@ -75,7 +80,7 @@ function TipShortcuts() {
               {keys.map((key, i) => (
                 <Fragment key={key}>
                   <Kbd>{key}</Kbd>
-                  {i !== keys.length - 1 && <span>or</span>}
+                  {i !== keys.length - 1 && <span>或</span>}
                 </Fragment>
               ))}
             </div>

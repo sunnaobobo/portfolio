@@ -19,16 +19,14 @@ function CodeFooter({
   return (
     <div className={clsx('mdx-code__footer')}>
       {selected && (
-        <div className={clsx('mdx-code__footer-item')}>
-          Selected: {selected}
-        </div>
+        <div className={clsx('mdx-code__footer-item')}>高亮行：{selected}</div>
       )}
       {language && (
         <div className={clsx('mdx-code__footer-item')}>{language}</div>
       )}
       {lines && (
         <div className={clsx('mdx-code__footer-item hidden', 'sm:flex')}>
-          Lines: {lines}
+          共 {lines} 行
         </div>
       )}
       <div className={clsx('mdx-code__footer-item')}>UTF-8</div>
@@ -73,15 +71,15 @@ function Code({
           type="button"
           className={clsx('mdx-code__copy-button')}
           onClick={copyToClipboard}
-          title="Copy to Clipboard"
-          aria-label="Copy to Clipboard"
+          title="复制到剪贴板"
+          aria-label="复制到剪贴板"
         >
           <div
             className={clsx('mdx-code__copy-button-message', [
               isCopied ? 'mdx-code__copy-button-message-copied' : '',
             ])}
           >
-            Copied!
+            已复制
           </div>
           <ClipboardIcon />
         </button>

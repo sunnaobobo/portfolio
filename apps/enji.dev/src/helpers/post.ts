@@ -5,7 +5,7 @@ import type { TPostFrontMatter, TPostOgImage } from '@/types';
 
 export const formatDate = (date: string) => {
   if (dayjs(date).isValid()) {
-    return dayjs(date, 'YYYY-MM-DD').format('MMMM D, YYYY');
+    return dayjs(date, 'YYYY-MM-DD').format('YYYY年M月D日');
   }
 
   return date;
@@ -20,15 +20,15 @@ export const formatDateRelative = (date: string) => {
     }
 
     if (days > 1) {
-      return `${days} days ago`;
+      return `${days} 天前`;
     }
 
     if (days === 1) {
-      return `Yesterday`;
+      return '昨天';
     }
 
     if (days === 0) {
-      return `Today`;
+      return '今天';
     }
   }
 
@@ -45,10 +45,12 @@ export const formatDateISO = (date: string) => {
 
 export const formatLang = (lang: TPostFrontMatter['lang']) => {
   switch (lang) {
+    case 'zh':
+      return '中文';
     case 'id':
-      return 'Bahasa Indonesia';
+      return '印尼语';
     case 'en':
-      return 'English';
+      return '英文';
     default:
       return '';
   }
@@ -94,9 +96,9 @@ export const getPostStructuredData = ({
     author: [
       {
         '@type': 'Person',
-        name: 'Enji Kusnadi',
-        jobTitle: 'Front-End Developer',
-        url: 'https://www.enji.dev/about',
+        name: '孙靖',
+        jobTitle: 'AI Full-Stack Engineer',
+        url: 'https://portfolio.sunnao.wtf',
       },
     ],
   });

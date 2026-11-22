@@ -26,7 +26,7 @@ export function Do({ children = null }: PropsWithChildren) {
             )}
           />
         </div>
-        Do
+        推荐写法
       </div>
       <div className={clsx('')}>{children}</div>
     </div>
@@ -53,7 +53,7 @@ export function Dont({ children = null }: PropsWithChildren) {
             )}
           />
         </div>
-        Don&apos;t
+        避免写法
       </div>
       <div className={clsx('')}>{children}</div>
     </div>

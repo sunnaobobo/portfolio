@@ -1,91 +1,53 @@
 ---
-title: Studio
-description: A work-from-home workspace that allows me to efficiently complete most tasks.
-caption: Work
+title: 工作台
+description: 支撑日常 AI 智能体调试、分布式微服务开发与全栈联调的软硬件工具链。
+caption: 工作
 layout: PageWithMDX
 ---
 
-import Image from '@/components/mdx/Image';
 import Kbd from '@/components/Kbd';
 
-<Image
-  src="/assets/images/current-workspace.jpg"
-  alt="Current enjidev workspace"
-  width={2048}
-  height={846}
-/>
+一套顺手、低摩擦的开发环境，能把精力真正留给架构思考与复杂问题排查。这里整理了我日常用于 **Java 微服务研发、Python Agent 脚本沙箱验证与前端联调** 的主力设备与软件栈。
 
-One of the most important things for me when working from home is having the right tools. So, let's start with my main device - the computer.
+---
 
-## Computer
+## 硬件与桌面环境
 
-| Name       | Detail                       |
-| ---------- | ---------------------------- |
-| OS         | Windows 11 Home 64-bit       |
-| Proccessor | Intel Core i3-12100 12th Gen |
-| RAM        | 32GB 3600Mhz DDR4            |
-| GPU        | RTX 3060 12GB GDDR6          |
-| Storage    | NVMe M.2 1TB Gen4x4          |
+日常采用 **macOS 笔记本 + 4K 外接显示器** 的双屏开发布局：主屏专注编写后端与 Agent 核心代码，副屏常驻终端日志流、接口调试面板或浏览器实时预览，减少频繁使用 <span className="text-xs"><Kbd>Cmd</Kbd> + <Kbd>Tab</Kbd></span> 切换上下文的心智损耗。
 
-This computer may not have the latest specs, but it runs incredibly fast and smooth! It's perfect for web development, even for larger or heavier projects.
+| 设备类别   | 配置说明                                                  |
+| ---------- | --------------------------------------------------------- |
+| 主力开发机 | Apple Silicon Mac（macOS · 统一内存架构，多容器流畅并行） |
+| 外接显示器 | 27 英寸 4K IPS 显示器（高像素密度阅读长代码与日志更舒适） |
+| 输入外设   | 机械键盘（线性轴体）+ 人体工学无线鼠标                    |
+| 音频设备   | 主动降噪耳机（保障深度编码与架构设计时的专注度）          |
 
-The 32GB of RAM also ensures that multitasking is a breeze!
+---
 
-### Support Device
+## 核心开发与排障工具链
 
-With my trusty **MacBook Pro M2** as my backup work companion, I've the freedom to work from anywhere.
+针对全栈与 AI 工程的多语言协作场景，我将工具链按职责划分为四个高频组合：
 
-Its powerful performance and long battery life ensure that productivity knows no bounds, whether I'm at a coffee shop or exploring remote locations.
+### IDE 与代码编辑
 
-It also helps me perform comprehensive **compatibility** checks for websites on the Safari browser, which is exclusive to Mac devices.
+| 工具名称         | 主要用途                                                       |
+| ---------------- | -------------------------------------------------------------- |
+| IntelliJ IDEA    | Java、Spring Boot / Cloud、Flowable 及 Groovy 规则脚本主力 IDE |
+| VS Code          | Python 解析脚本、React / Vue / Next.js 前端工程与 MDX 写作     |
+| Git & GitHub CLI | 分支管理、Code Review 与提交历史追溯                           |
 
-And I have an **iPad Pro M2** with an Apple Pencil as well. With a large 12.9" display size, it gives me the space I need to create detailed and expressive artwork!
+### 数据库、缓存与中间件调试
 
-I also have an iPhone, which comes in handy for checking website compatibility specifically on Safari mobile.
+| 工具名称                      | 主要用途                                             |
+| ----------------------------- | ---------------------------------------------------- |
+| DataGrip / Navicat            | MySQL 执行计划（`EXPLAIN`）分析、索引调优与数据核对  |
+| Another Redis Desktop Manager | Redis / Tair 键值结构检视、TTL 排查与内存占用观测    |
+| Apifox / Postman              | RESTful 接口契约管理、MCP 工具载荷验证与回归测试集合 |
 
-## Display
+### 容器、终端与线上可观测
 
-The dual monitor setup maximizes my web development workflow. I can code on one screen while previewing live on the other — no more <span className="text-xs"><Kbd>Alt</Kbd> + <Kbd>Tab</Kbd></span> necessary for faster, more efficient work!
-
-Need a website with extra wide breakpoint? I've got you covered with my ultrawide monitor.
-
-### Primary
-
-| Name         | Detail                |
-| ------------ | --------------------- |
-| Model        | Mi Curved Monitor 34" |
-| Resolutions  | WQHD 3440x1440        |
-| Aspect ratio | 21:9                  |
-| Refresh rate | 144 Hz                |
-
-### Secondary
-
-| Name         | Detail                 |
-| ------------ | ---------------------- |
-| Model        | Mi Desktop Monitor 27" |
-| Resolutions  | FHD 1920x1080          |
-| Aspect ratio | 16:9                   |
-| Refresh rate | 75 Hz                  |
-
-## Peripherals
-
-| Name       | Detail             |
-| ---------- | ------------------ |
-| Keyboard   | Rexus Daiva RX-D68 |
-| Mouse      | Rexus Xierra X15   |
-| Pen Tablet | One by Wacom       |
-
-## Conferencing Devices
-
-| Name            | Detail                |
-| --------------- | --------------------- |
-| Microphone      | Rode Podmic (Dynamic) |
-| Headphone       | Samson SR850          |
-| Earbuds         | AirPods Pro 2nd gen   |
-| Audio interface | EVO 4 by Audient      |
-
-## Others
-
-| Name     | Detail      |
-| -------- | ----------- |
-| Internet | 50Mbps WiFi |
+| 工具名称            | 主要用途                                                |
+| ------------------- | ------------------------------------------------------- |
+| OrbStack / Docker   | 本地快速拉起 MySQL、Redis、RabbitMQ、ES 及隔离测试沙箱  |
+| iTerm2 + zsh        | 远程 Linux 主机运维、日志流检索与评测流水线执行         |
+| Arthas & SLS 控制台 | Java 线上方法耗时追踪、内存堆栈诊断与百万级设备日志检索 |

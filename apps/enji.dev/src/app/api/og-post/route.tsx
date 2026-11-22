@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
     const title = get('title');
     const tags = get('tags') ? get('tags').split(',') : undefined;
     const date = get('date') ? formatDate(get('date')) : undefined;
-    const lang = get('lang') as 'id' | 'en';
+    const lang = get('lang') as 'id' | 'en' | 'zh';
 
     const [font400, font800] = await Promise.all([getFont400(), getFont800()]);
 

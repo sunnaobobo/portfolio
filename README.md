@@ -1,71 +1,29 @@
-<div>
-  <h1>
-    Enji Kusnadi
-    &middot;
-    <img src="https://img.shields.io/website?style=flat-square&url=https%3A%2F%2Fwww.enji.dev"/>
-    <img src="https://img.shields.io/github/deployments/enjidev/enji.dev/production?label=production&style=flat-square"/>
-    <img src="https://img.shields.io/github/commit-activity/m/enjidev/enji.dev?style=flat-square"/>
-  </h1>
-</div>
+# 孙靖 · 个人网站与技术博客
 
-A monorepo for my personal website and projects, built with Turborepo and pnpm.
+基于 **Next.js App Router**、**TypeScript**、**Tailwind CSS**、**Framer Motion**、**MDX** 与 **Prisma** 构建的个人网站，使用 Turborepo 与 pnpm 管理工作区。
 
-## 📘 [enji.dev](https://www.enji.dev)
+- 在线访问：[https://portfolio.sunnao.wtf](https://portfolio.sunnao.wtf)
+- GitHub：[https://github.com/florianjsun](https://github.com/florianjsun)
 
-A personal website with a blog, project showcase, and work information.
+## 本地运行与构建
 
-https://user-images.githubusercontent.com/95107212/210668021-fd49431f-85a3-4bd7-bf9e-09639cb38922.mp4
+要求使用 Node.js 24+ 与 pnpm 12+，在仓库根目录执行：
 
-### Tech Stack
-
-- 🚀 Next.js + TypeScript
-- ➰ Framer Motion
-- 🍃 Tailwind CSS
-- ✍ MDX
-
-### Running the Project
-
-To get started, I recommend [installing pnpm](https://pnpm.io/installation) since it's the package manager used in this repository.
-
-Begin by forking the repository and then cloning it to your local machine:
-
-```
-git clone <your-fork>
-```
-
-Navigate to the project's root directory:
-
-```
-cd ./enji.dev
-```
-
-Next, copy the development version of the `env` file:
-
-```
+```bash
+# 1. 配置环境变量（用于文章阅读量与互动统计）
 cp ./apps/enji.dev/.env.example ./apps/enji.dev/.env.local
-```
 
-Now, you have the `.env.local` file ready for configuration:
-
-```
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/portfolio?schema=public"
-SALT_IP_ADDRESS="super-secret"
-```
-
-For the `DATABASE_URL` use your PostgreSQL connection string (e.g., local PostgreSQL, [Supabase](https://supabase.com/), or [Neon](https://neon.tech/)). After setting `DATABASE_URL`, run `pnpm --filter enji.dev db:migrate` to initialize the database schema.
-
-As for `SALT_IP_ADDRESS`, feel free to fill it with some of your secret words. It acts as a salt for hashing users' IP addresses.
-
-Once configuration is complete, still at the root of the project directory, install the required dependencies:
-
-```
+# 2. 安装依赖
 pnpm install
-```
 
-Finally, run the project:
-
-```
+# 3. 启动本地开发服务（默认 http://localhost:3000）
 pnpm dev
 ```
 
-Now, your project should be up and running smoothly!
+生产构建与代码检查：
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```

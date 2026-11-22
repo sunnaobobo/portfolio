@@ -35,6 +35,18 @@ export const addContent = (tree: any, content: string) => {
   });
 };
 
+export const slugifyHeading = (text: string) => {
+  const normalized = text
+    .trim()
+    .toLowerCase()
+    .replace(/[^\u4e00-\u9fa5a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  return normalized || slug(text);
+};
+
 export const getTableOfContents = (tree: any) => {
   const contents: Array<{ title: string; slug: string; depth: number }> = [];
 
@@ -50,7 +62,7 @@ export const getTableOfContents = (tree: any) => {
 
       contents.push({
         title,
-        slug: slug(title),
+        slug: slugifyHeading(title),
         depth,
       });
     }

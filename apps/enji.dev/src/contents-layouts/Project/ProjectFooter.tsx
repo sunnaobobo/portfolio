@@ -19,15 +19,16 @@ function ProjectFooter({ githubUrl = '' }: ProjectFooterProps) {
     >
       <div className={clsx('flex flex-wrap gap-x-1 gap-y-2')}>
         <div className={clsx('')}>
-          Got any feedback?{' '}
+          有任何建议或反馈？欢迎前往 GitHub{' '}
           <a
             href={githubUrl}
             target="_blank"
             rel="noreferrer nofollow"
             className={clsx('link')}
           >
-            open an issue / discussion here.
+            提交 Issue 或参与讨论
           </a>
+          。
         </div>
       </div>
     </div>

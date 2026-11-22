@@ -20,8 +20,8 @@ function useFocusMode() {
       toast.custom(
         (t) => (
           <Toast
-            title={`Focus Turned ${enabled ? 'On' : 'Off'}`}
-            message="Focus helps reduce distractions by hiding floating components, like navigation and reactions."
+            title={`专注模式已${enabled ? '开启' : '关闭'}`}
+            message="开启专注模式后，将隐藏顶部导航栏与悬浮互动栏，减少阅读干扰。"
             t={t}
           />
         ),

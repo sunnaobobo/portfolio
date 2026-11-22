@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 
-import { GitHubIcon, TwitterIcon } from '@/components/Icons';
+import { GitHubIcon, MailIcon } from '@/components/Icons';
 import NavIcon from '@/components/navigations/NavIcon';
 import NavIconQuickAccess from '@/components/navigations/NavIconQuickAccess';
 import NavLink from '@/components/navigations/NavLink';
@@ -13,10 +13,10 @@ import NavLogo from '@/components/navigations/NavLogo';
 import useOnScroll from '@/hooks/useOnScroll';
 
 const workLinks = [
-  { title: 'Skills & Tools', href: '/work/skills-and-tools' },
-  { title: 'Experience', href: '/work/experience' },
-  { title: 'Studio', href: '/work/studio' },
-  { title: 'Contact', href: '/work/contact' },
+  { title: '技能与工具', href: '/work/skills-and-tools' },
+  { title: '工作经历', href: '/work/experience' },
+  { title: '工作台', href: '/work/studio' },
+  { title: '联系方式', href: '/work/contact' },
 ];
 
 function Navbar() {
@@ -47,36 +47,36 @@ function Navbar() {
           )}
         >
           <nav className={clsx('flex', 'md:gap-2')} data-accent="violet">
-            <NavLogo href="/" title="Home" />
+            <NavLogo href="/" title="首页" />
             <ul className={clsx('flex items-center', 'md:gap-1')}>
               <li>
-                <NavLink title="Projects" href="/projects" />
+                <NavLink title="项目" href="/projects" />
               </li>
               <li>
-                <NavLink title="Blog" href="/blog" />
+                <NavLink title="博客" href="/blog" />
               </li>
               <li>
-                <NavLink title="T.I.L" href="/today-i-learned" />
+                <NavLink title="今日所学" href="/today-i-learned" />
               </li>
               <li className={clsx('lg:hidden')} data-accent="blue">
-                <NavLinkDropdown title="Work" items={workLinks} />
+                <NavLinkDropdown title="工作" items={workLinks} />
               </li>
               <li className={clsx('hidden lg:block')} data-accent="blue">
-                <NavLinkExpanded title="Work" items={workLinks} />
+                <NavLinkExpanded title="工作" items={workLinks} />
               </li>
             </ul>
           </nav>
           <ul className={clsx('flex items-center')}>
             <li className={clsx('hidden', 'sm:block')}>
               <NavIcon
-                href="https://twitter.com/enjidev"
-                icon={<TwitterIcon className={clsx('h-5 w-5')} />}
-                title="Twitter"
+                href="mailto:florianjsun@gmail.com"
+                icon={<MailIcon className={clsx('h-5 w-5')} />}
+                title="发送邮件"
               />
             </li>
             <li className={clsx('hidden', 'sm:block')}>
               <NavIcon
-                href="https://github.com/enjidev"
+                href="https://github.com/florianjsun"
                 icon={<GitHubIcon className={clsx('h-5 w-5')} />}
                 title="GitHub"
               />

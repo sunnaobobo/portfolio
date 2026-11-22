@@ -25,7 +25,7 @@ export function H2({ children }: Props) {
         href={`#${slug}`}
         className={clsx('mdx-heading__anchor group-hover:opacity-100')}
         aria-labelledby={slug}
-        title={`Link to ${children}`}
+        title={`跳转到「${children}」`}
       >
         <HashtagIcon />
       </a>

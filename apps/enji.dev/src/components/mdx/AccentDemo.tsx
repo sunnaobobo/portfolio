@@ -76,19 +76,19 @@ function AccentDemo() {
   const getButtonText = (color: (typeof accents)[number]): string => {
     switch (color) {
       case 'violet':
-        return `This is perfect 👌`;
+        return '这个紫色很顺眼 👌';
       case 'red':
-        return `I look brave, don't I? 😡`;
+        return '换个炽热的红色试试？😡';
       case 'blue':
-        return `This is good 🤩`;
+        return '清爽的蓝色也不错 🤩';
       case 'orange':
-        return `Are you serious? 👀`;
+        return '确定要选活力橙吗？👀';
       case 'green':
-        return `Ah green, not bad 😁`;
+        return '护眼绿，感觉还挺好 😁';
       case 'pink':
-        return `Okay, bring me back to violet! 😭`;
+        return '好啦，快切回紫色吧！😭';
       default:
-        return `Change the accent color!`;
+        return '点击切换主题强调色';
     }
   };
 

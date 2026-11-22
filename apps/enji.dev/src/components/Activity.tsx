@@ -15,6 +15,21 @@ interface ActivityItemProps {
   data: TContentActivity;
 }
 
+function formatContentType(contentType: TContentActivity['contentType']) {
+  switch (contentType) {
+    case 'POST':
+      return '博客文章';
+    case 'PROJECT':
+      return '项目文档';
+    default:
+      return '页面';
+  }
+}
+
+function formatActivityType(activityType: TContentActivity['activityType']) {
+  return activityType === 'REACTION' ? '互动反馈' : '分享动态';
+}
+
 function ActivityItem({
   data: {
     activityType,
@@ -26,6 +41,8 @@ function ActivityItem({
     ...rest
   },
 }: ActivityItemProps) {
+  const typeLabel = formatContentType(contentType);
+
   if (activityType === 'REACTION') {
     const { count } = rest as Pick<TContentActivityReaction, 'count'>;
 
@@ -45,20 +62,17 @@ function ActivityItem({
     }
 
     return (
-      <div className={clsx('flex flex-wrap items-baseline gap-x-1')}>
-        <span>the</span>
+      <div className={clsx('flex flex-wrap items-baseline gap-x-1 leading-6')}>
+        <span>{typeLabel}</span>
         <span
           className={clsx(
             'font-semibold text-accent-600',
             'dark:text-accent-400'
           )}
         >
-          {contentTitle}
+          《{contentTitle}》
         </span>
-        <span className={clsx('lowercase')}>
-          {contentType.replace('POST', 'BLOG POST')}
-        </span>
-        <span>got new</span>
+        <span>收到了新的</span>
         {count !== 1 && (
           <span
             className={clsx(
@@ -75,21 +89,18 @@ function ActivityItem({
   }
 
   return (
-    <div className={clsx('flex flex-wrap items-baseline gap-x-1')}>
-      <span>the</span>
+    <div className={clsx('flex flex-wrap items-baseline gap-x-1 leading-6')}>
+      <span>{typeLabel}</span>
       <span
         className={clsx(
           'font-semibold text-accent-600',
           'dark:text-accent-400'
         )}
       >
-        {contentTitle}
+        《{contentTitle}》
       </span>
-      <span className={clsx('lowercase')}>
-        {contentType.replace('POST', 'BLOG POST')}
-      </span>
-      <span>was shared</span>
-      {type === 'TWITTER' && <span>to Twitter!</span>}
+      <span>被分享</span>
+      {type === 'TWITTER' && <span>到了 Twitter！</span>}
     </div>
   );
 }
@@ -120,7 +131,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
           className={clsx('text-sm text-slate-700', 'dark:text-slate-400')}
           variants={animation}
         >
-          retrieving data..
+          正在加载动态…
         </m.div>
       );
     }
@@ -131,7 +142,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
           className={clsx('text-sm text-slate-700', 'dark:text-slate-400')}
           variants={animation}
         >
-          nothing new at the moment.
+          近 24 小时暂无新动态。
         </m.div>
       );
     }
@@ -142,7 +153,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
           className={clsx('text-sm text-slate-700', 'dark:text-slate-400')}
           variants={animation}
         >
-          an internal error occurred.
+          动态暂时无法加载，请稍后重试。
         </m.div>
       );
     }
@@ -150,7 +161,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
     return data.map((activity) => {
       const { createdAt, contentType, slug } = activity;
 
-      const link = contentType === 'POST' ? `/blog/${slug}` : `/docs/${slug}`;
+      const link = contentType === 'POST' ? `/blog/${slug}` : '/projects';
 
       return (
         <m.div key={createdAt} variants={animation}>
@@ -170,7 +181,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
                 'dark:text-slate-400'
               )}
             >
-              <span>{activity.activityType}</span>
+              <span>{formatActivityType(activity.activityType)}</span>
               <span>{relativeTime(activity.createdAt)}</span>
             </div>
             <ActivityItem data={activity} />
@@ -191,7 +202,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
       className={clsx('flex flex-1 flex-col gap-2')}
     >
       <m.div variants={animation} className={clsx('px-2 text-xl font-bold')}>
-        Recent Activities
+        近期动态
       </m.div>
       <div
         className={clsx(

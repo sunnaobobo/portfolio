@@ -26,24 +26,22 @@ function ButtonContactMe() {
   return (
     <Link
       href="/work/contact"
-      className={clsx('button button--solid min-w-[128px]', 'md:button--big')}
+      className={clsx('button button--solid min-w-[120px]', 'md:button--big')}
     >
-      Get in Touch
+      联系我
     </Link>
   );
 }
 
 function ButtonResume() {
   return (
-    <a
-      target="_blank"
-      rel="noreferrer nofollow"
-      href="https://www.figma.com/community/file/1176377524040948926"
-      className={clsx('button button--ghost px-2', 'md:button--big md:px-2')}
+    <Link
+      href="/work/experience"
+      className={clsx('button button--ghost px-3', 'md:button--big md:px-4')}
     >
       <DocumentIcon className={clsx('h-5 w-5')} />
-      RESUME
-    </a>
+      查看履历
+    </Link>
   );
 }
 
@@ -70,7 +68,7 @@ function AvailableForHire() {
           )}
         />
       </span>
-      AVAILABLE FOR HIRE
+      欢迎技术交流与合作
     </div>
   );
 }

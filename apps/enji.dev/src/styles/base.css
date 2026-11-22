@@ -60,6 +60,13 @@
     @apply dark:bg-slate-900 dark:text-slate-200 dark:[color-scheme:dark];
   }
 
+  h1,
+  h2,
+  h3,
+  p {
+    text-wrap: pretty;
+  }
+
   :focus-visible {
     @apply relative rounded-xl ring-2 ring-accent-400 outline-hidden;
   }
