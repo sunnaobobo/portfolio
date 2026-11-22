@@ -30,7 +30,7 @@ export default function ImageSensitive({
         )}
         onClick={() => setShown(!isShown)}
       >
-        {isShown ? 'Hide' : 'Show'}
+        {isShown ? '隐藏图片' : '查看图片'}
       </button>
       {!isShown && (
         <div
@@ -46,11 +46,9 @@ export default function ImageSensitive({
           >
             <EyeSlash className={clsx('mb-2 h-5 w-5')} />
             <div className={clsx('font-bold')}>
-              {message || 'Sensitive Content'}
+              {message || '可能引起不适的内容'}
             </div>
-            <p className={clsx('text-sm')}>
-              WARNING: This image is flagged as sensitive content.
-            </p>
+            <p className={clsx('text-sm')}>提示：该图片已标记为敏感内容。</p>
           </div>
         </div>
       )}

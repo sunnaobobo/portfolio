@@ -16,7 +16,15 @@ import type { ReactElement, ReactNode } from 'react';
 
 export const getSlug = (children: ReactNode) => {
   if (typeof children === 'string') {
-    return slug(children);
+    const normalized = children
+      .trim()
+      .toLowerCase()
+      .replace(/[^\u4e00-\u9fa5a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+
+    return normalized || slug(children);
   }
 
   return '';

@@ -11,16 +11,16 @@ import useShortcut from '@/hooks/useShortcut';
 import useTheme from '@/hooks/useTheme';
 
 const focusToast = {
-  title: 'Focus Turned {STATUS}',
-  message:
-    'Focus helps reduce distractions by hiding floating components, like navigation and reactions.',
+  title: '专注模式已{STATUS}',
+  message: '开启专注模式后，将隐藏顶部导航栏与悬浮互动栏，减少阅读干扰。',
 };
 
 function Shortcuts() {
-  const toastRef = useRef(null);
+  const toastRef = useRef<string | null>(null);
   const { theme, setTheme } = useTheme();
   const { isQuickAccessOpen, setQuickAccessOpen } = useGlobal();
   const { focusMode, setFocusMode } = useFocusMode();
+  const prevFocusMode = useRef(focusMode);
 
   useShortcut('KeyD', () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -35,26 +35,26 @@ function Shortcuts() {
   });
 
   useEffect(() => {
+    if (prevFocusMode.current === focusMode) {
+      return;
+    }
+
+    prevFocusMode.current = focusMode;
+
     if (toastRef.current) {
-      toast.remove(toastRef.current.id);
+      toast.remove(toastRef.current);
     }
-    if (focusMode) {
-      toastRef.current = toast.custom((t) => (
-        <Toast
-          title={focusToast.title.replace('{STATUS}', 'On')}
-          message={focusToast.message}
-          t={t}
-        />
-      ));
-    } else {
-      toastRef.current = toast.custom((t) => (
-        <Toast
-          title={focusToast.title.replace('{STATUS}', 'Off')}
-          message={focusToast.message}
-          t={t}
-        />
-      ));
-    }
+
+    toastRef.current = toast.custom((t) => (
+      <Toast
+        title={focusToast.title.replace(
+          '{STATUS}',
+          focusMode ? '开启' : '关闭'
+        )}
+        message={focusToast.message}
+        t={t}
+      />
+    ));
   }, [focusMode]);
 
   return null;

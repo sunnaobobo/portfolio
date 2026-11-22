@@ -25,8 +25,8 @@ function InsightButton({ views, shares, reactions }: InsightButtonProps) {
       {({ open }) => (
         <>
           <PopoverButton
-            title="Insight"
-            aria-label="Insight"
+            title="数据概览"
+            aria-label="数据概览"
             className={clsx(
               'relative z-10 flex h-10 w-10 items-center justify-center rounded-full',
               'hover:bg-slate-200 hover:dark:bg-[#1d263a]',
@@ -48,27 +48,43 @@ function InsightButton({ views, shares, reactions }: InsightButtonProps) {
               )}
             >
               <div
-                className={clsx(
-                  'px-4 py-3 text-center text-lg text-[13px] font-bold'
-                )}
+                className={clsx('px-4 py-3 text-center text-[13px] font-bold')}
               >
-                Insight
+                数据概览
               </div>
               <div className={clsx('flex justify-evenly py-2 text-sm')}>
                 <div className={clsx('flex flex-col items-center gap-1')}>
-                  <div>Views</div>
+                  <div
+                    className={clsx(
+                      'text-xs text-slate-500 dark:text-slate-400'
+                    )}
+                  >
+                    阅读
+                  </div>
                   <div className={clsx('font-mono text-xl')}>
                     {formatNumber(views)}
                   </div>
                 </div>
                 <div className={clsx('flex flex-col items-center gap-1')}>
-                  <div>Shares</div>
+                  <div
+                    className={clsx(
+                      'text-xs text-slate-500 dark:text-slate-400'
+                    )}
+                  >
+                    分享
+                  </div>
                   <div className={clsx('font-mono text-xl')}>
                     {formatNumber(shares)}
                   </div>
                 </div>
                 <div className={clsx('flex flex-col items-center gap-1')}>
-                  <div>Reactions</div>
+                  <div
+                    className={clsx(
+                      'text-xs text-slate-500 dark:text-slate-400'
+                    )}
+                  >
+                    互动
+                  </div>
                   <div className={clsx('font-mono text-xl')}>
                     {formatNumber(reactions)}
                   </div>

@@ -75,13 +75,13 @@ function ActionCenter() {
       transition={{ staggerChildren: 0.06 }}
     >
       <m.div className={clsx('px-2 text-xl font-bold')} variants={animation}>
-        Action Center
+        控制中心
       </m.div>
       <div className={clsx('flex flex-1 flex-col gap-8 p-2')}>
         <m.div className={clsx('flex h-24 gap-4')} variants={animation}>
           <ActionCenterButton
             active={theme === 'dark'}
-            title={theme === 'dark' ? 'Dark Mode: On' : 'Dark Mode: Off'}
+            title={theme === 'dark' ? '深色模式：已开启' : '深色模式：已关闭'}
             onClick={handleThemeChange}
             icon={
               <m.div
@@ -127,7 +127,7 @@ function ActionCenter() {
             }
           />
           <ActionCenterButton
-            title={focusMode ? 'Focus: On' : 'Focus: Off'}
+            title={focusMode ? '专注模式：已开启' : '专注模式：已关闭'}
             onClick={() => {
               setFocusMode(!focusMode);
             }}

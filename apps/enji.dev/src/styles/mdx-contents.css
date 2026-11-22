@@ -1,9 +1,9 @@
 .mdx-contents {
-  @apply w-full text-slate-600;
+  @apply w-full tracking-[0.01em] text-slate-600;
   @apply dark:text-slate-400;
 
   p {
-    @apply leading-relaxed;
+    @apply leading-[1.85];
 
     & + p {
       @apply mt-4;

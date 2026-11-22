@@ -29,8 +29,8 @@ function SectionTitle({
     <div className={clsx('content-wrapper')}>
       <Heading
         className={clsx(
-          'mb-2 block font-black text-accent-600',
-          'lg:mb-4',
+          'mb-2 block text-sm font-bold tracking-wide text-accent-600',
+          'lg:mb-3 lg:text-base',
           'dark:text-accent-400'
         )}
       >
@@ -38,14 +38,19 @@ function SectionTitle({
       </Heading>
       <p
         className={clsx(
-          'mb-4 text-3xl font-black text-slate-700',
-          'lg:text-4xl',
+          'mb-4 text-3xl leading-[1.28] font-extrabold tracking-tight text-slate-800',
+          'lg:text-4xl lg:leading-[1.25]',
           'dark:text-slate-200'
         )}
       >
         {title}
       </p>
-      <p className={clsx('max-w-lg text-slate-600', 'dark:text-slate-400')}>
+      <p
+        className={clsx(
+          'max-w-xl leading-relaxed text-slate-600',
+          'dark:text-slate-400'
+        )}
+      >
         {description}
       </p>
       {button && (

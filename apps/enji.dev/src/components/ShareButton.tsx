@@ -108,8 +108,8 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
       {({ open }) => (
         <>
           <MenuButton
-            title="Share"
-            aria-label="Share"
+            title="分享"
+            aria-label="分享"
             className={clsx(
               'relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-slate-200',
               'dark:bg-[#1d263a]'
@@ -130,17 +130,15 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
               )}
             >
               <div
-                className={clsx(
-                  'px-4 py-3 text-center text-lg text-[13px] font-bold'
-                )}
+                className={clsx('px-4 py-3 text-center text-[13px] font-bold')}
               >
-                Share this on
+                分享到
               </div>
               <MenuItem>
                 {({ focus }) => (
                   <ShareItemLink
                     active={focus}
-                    href={`https://twitter.com/intent/tweet?via=enjidev&url=${currentUrl}`}
+                    href={`https://twitter.com/intent/tweet?url=${currentUrl}`}
                     onClick={handleTwitter}
                   >
                     <TwitterIcon className={clsx('h-4 w-4')} />
@@ -161,7 +159,7 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
                 {({ focus }) => (
                   <ShareItemButton active={focus} onClick={handleCopy}>
                     <NoteIcon className={clsx('h-4 w-4')} />
-                    Copy link
+                    复制链接
                   </ShareItemButton>
                 )}
               </MenuItem>

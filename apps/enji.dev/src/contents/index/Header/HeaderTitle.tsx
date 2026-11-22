@@ -19,15 +19,15 @@ function HeaderTitle() {
     <div>
       <m.div
         className={clsx(
-          'mb-1 flex items-center gap-1 text-2xl text-slate-600',
-          'md:mb-0 md:gap-2 md:text-4xl',
+          'mb-2 flex items-center gap-1.5 text-xl font-medium text-slate-600',
+          'md:mb-3 md:gap-2 md:text-2xl',
           'dark:text-slate-400'
         )}
         initial={animation.hide}
         animate={animation.show}
         transition={{ delay: 0.1 }}
       >
-        hi!
+        你好，很高兴认识你
         <m.div
           initial={{
             opacity: 0,
@@ -44,8 +44,8 @@ function HeaderTitle() {
           }}
         >
           <Image
-            className={clsx('w-7 md:w-10')}
-            alt="Love-you Gesture"
+            className={clsx('w-7 md:w-8')}
+            alt="问候手势"
             src="/assets/emojis/love-you-gesture.png"
             width={48}
             height={48}
@@ -60,43 +60,38 @@ function HeaderTitle() {
           />
         </m.div>
       </m.div>
-      <span className={clsx('text-slate-700', 'dark:text-slate-300')}>
+      <span className={clsx('text-slate-800', 'dark:text-slate-200')}>
         <m.span
           className={clsx(
-            'mb-4 block text-[2.5rem] leading-none font-[1000]',
-            'md:mb-6 md:text-7xl'
+            'mb-4 block text-[2.25rem] leading-[1.2] font-extrabold tracking-tight',
+            'md:mb-5 md:text-6xl lg:text-[4.25rem]'
           )}
           initial={animation.hide}
           animate={animation.show}
           transition={{ delay: 0.2 }}
         >
-          I&apos;m{' '}
+          我是{' '}
           <strong className={clsx('text-accent-600', 'dark:text-accent-500')}>
-            Enji
-          </strong>{' '}
-          Kusnadi,{' '}
+            孙靖
+          </strong>
         </m.span>
         <m.h1
           className={clsx(
-            'block text-base text-slate-600',
-            'md:text-xl',
+            'block max-w-xl text-base leading-relaxed text-slate-600',
+            'md:text-xl md:leading-relaxed',
             'dark:text-slate-400'
           )}
           initial={animation.hide}
           animate={animation.show}
           transition={{ delay: 0.3 }}
         >
-          <span className={clsx('lowercase')}>A</span>{' '}
+          专注于{' '}
           <strong
-            className={clsx(
-              'font-bold text-slate-700 lowercase',
-              'dark:text-slate-300'
-            )}
+            className={clsx('font-bold text-slate-800', 'dark:text-slate-200')}
           >
-            Front-End Developer
+            AI 智能体工程化与高可用全栈架构
           </strong>{' '}
-          who loves intuitive,{' '}
-          <span className={clsx('block')}>clean and modern UI design.</span>
+          的开发者，致力于将大模型能力可控、可评测地融入复杂业务系统。
         </m.h1>
       </span>
     </div>

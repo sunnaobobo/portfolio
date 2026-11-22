@@ -30,7 +30,7 @@ export type TPageOgImage = Partial<
 
 export type TPostFrontMatter = TBaseFrontMatter & {
   date: string;
-  lang: 'id' | 'en';
+  lang: 'id' | 'en' | 'zh';
   tags: Array<string>;
   category: string;
 };

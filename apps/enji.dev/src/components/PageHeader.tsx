@@ -62,8 +62,8 @@ function PageHeader({
           >
             <span
               className={clsx(
-                'mb-1 block text-lg leading-none font-extrabold text-accent-600 capitalize',
-                'md:mb-0 md:text-2xl',
+                'mb-2 block text-base leading-none font-bold tracking-wide text-accent-600',
+                'md:mb-3 md:text-xl',
                 'dark:text-accent-400'
               )}
             >
@@ -78,9 +78,9 @@ function PageHeader({
         >
           <h1
             className={clsx(
-              'text-[2.5rem] leading-tight font-extrabold text-slate-700',
-              'md:text-7xl md:leading-snug',
-              'dark:text-slate-300'
+              'text-[2.25rem] leading-[1.2] font-extrabold tracking-tight text-slate-800',
+              'md:text-6xl md:leading-[1.18]',
+              'dark:text-slate-200'
             )}
           >
             {title}
@@ -93,8 +93,8 @@ function PageHeader({
         >
           <p
             className={clsx(
-              'mt-4 text-lg text-slate-600',
-              'md:mt-6 md:text-2xl lg:max-w-[500px] xl:max-w-[700px]',
+              'mt-4 text-base leading-relaxed text-slate-600',
+              'md:mt-5 md:text-xl md:leading-relaxed lg:max-w-[540px] xl:max-w-[680px]',
               'dark:text-slate-400'
             )}
           >

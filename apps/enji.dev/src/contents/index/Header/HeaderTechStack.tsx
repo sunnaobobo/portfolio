@@ -4,13 +4,16 @@ import clsx from 'clsx';
 import { m } from 'framer-motion';
 
 import {
-  FigmaIcon,
-  FramerMotionIcon,
-  NextJsIcon,
+  CpuIcon,
+  DatabaseIcon,
+  JavaIcon,
+  PythonIcon,
   ReactIcon,
-  TailwindCssIcon,
-  TypeScriptIcon,
+  RedisIcon,
+  SpringIcon,
+  TerminalIcon,
   VSCodeIcon,
+  VueIcon,
 } from '@/components/Icons';
 
 const animation = {
@@ -30,11 +33,11 @@ function HeaderTechStack() {
         animate={animation.show}
         transition={{ delay: 0.6 }}
       >
-        current favorite tech stack/tools:
+        日常主力技术栈与工程底座：
       </m.p>
       <m.ul
         className={clsx(
-          'flex items-center gap-3.5 text-slate-500',
+          'flex flex-wrap items-center gap-3.5 text-slate-500',
           'dark:text-slate-500'
         )}
         initial="hide"
@@ -42,45 +45,93 @@ function HeaderTechStack() {
         transition={{ delayChildren: 0.6, staggerChildren: 0.025 }}
       >
         <m.li variants={animation}>
-          <div className={clsx('transition duration-200 hover:text-[#3178C6]')}>
-            <TypeScriptIcon className={clsx('h-6 w-6')} />
-          </div>
-        </m.li>
-        <m.li variants={animation}>
-          <div className={clsx('transition duration-200 hover:text-[#61DAFB]')}>
-            <ReactIcon className={clsx('h-6 w-6')} />
-          </div>
-        </m.li>
-        <m.li variants={animation}>
-          <div className={clsx('transition duration-200 hover:text-[#06B6D4]')}>
-            <TailwindCssIcon className={clsx('h-6 w-6')} />
-          </div>
-        </m.li>
-        <m.li variants={animation}>
-          <div className={clsx('transition duration-200 hover:text-[#0055FF]')}>
-            <FramerMotionIcon className={clsx('h-6 w-6')} />
+          <div
+            title="Java"
+            className={clsx('transition duration-200 hover:text-[#ED8B00]')}
+          >
+            <JavaIcon className={clsx('h-6 w-6')} />
           </div>
         </m.li>
         <m.li variants={animation}>
           <div
+            title="Python"
+            className={clsx('transition duration-200 hover:text-[#3776AB]')}
+          >
+            <PythonIcon className={clsx('h-6 w-6')} />
+          </div>
+        </m.li>
+        <m.li variants={animation}>
+          <div
+            title="Spring Boot / Spring Cloud / Spring AI"
+            className={clsx('transition duration-200 hover:text-[#6DB33F]')}
+          >
+            <SpringIcon className={clsx('h-6 w-6')} />
+          </div>
+        </m.li>
+        <m.li variants={animation}>
+          <div
+            title="AI Agent / Harness / MCP / RAG"
             className={clsx(
-              'transition duration-200 hover:text-[#000000] dark:hover:text-[#FFFFFF]'
+              'transition duration-200 hover:text-accent-600 dark:hover:text-accent-400'
             )}
           >
-            <NextJsIcon className={clsx('h-6 w-6')} />
+            <CpuIcon className={clsx('h-6 w-6')} />
+          </div>
+        </m.li>
+        <m.li variants={animation}>
+          <div
+            title="MySQL / ElasticSearch"
+            className={clsx('transition duration-200 hover:text-[#00758F]')}
+          >
+            <DatabaseIcon className={clsx('h-6 w-6')} />
+          </div>
+        </m.li>
+        <m.li variants={animation}>
+          <div
+            title="Redis / Tair"
+            className={clsx('transition duration-200 hover:text-[#DC382D]')}
+          >
+            <RedisIcon className={clsx('h-6 w-6')} />
           </div>
         </m.li>
         <m.li variants={animation}>
           <div className={clsx('h-3 w-[1px] bg-slate-300 dark:bg-slate-700')} />
         </m.li>
         <m.li variants={animation}>
-          <div className={clsx('transition duration-200 hover:text-[#007ACC]')}>
-            <VSCodeIcon className={clsx('h-6 w-6')} />
+          <div
+            title="React / Next.js"
+            className={clsx('transition duration-200 hover:text-[#61DAFB]')}
+          >
+            <ReactIcon className={clsx('h-6 w-6')} />
           </div>
         </m.li>
         <m.li variants={animation}>
-          <div className={clsx('transition duration-200 hover:text-[#F24E1E]')}>
-            <FigmaIcon className={clsx('h-6 w-6')} />
+          <div
+            title="Vue.js"
+            className={clsx('transition duration-200 hover:text-[#4FC08D]')}
+          >
+            <VueIcon className={clsx('h-6 w-6')} />
+          </div>
+        </m.li>
+        <m.li variants={animation}>
+          <div className={clsx('h-3 w-[1px] bg-slate-300 dark:bg-slate-700')} />
+        </m.li>
+        <m.li variants={animation}>
+          <div
+            title="Linux / 容器与线上运维"
+            className={clsx(
+              'transition duration-200 hover:text-slate-900 dark:hover:text-white'
+            )}
+          >
+            <TerminalIcon className={clsx('h-6 w-6')} />
+          </div>
+        </m.li>
+        <m.li variants={animation}>
+          <div
+            title="IDE & 开发工具"
+            className={clsx('transition duration-200 hover:text-[#007ACC]')}
+          >
+            <VSCodeIcon className={clsx('h-6 w-6')} />
           </div>
         </m.li>
       </m.ul>

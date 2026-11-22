@@ -1,119 +1,76 @@
 import TIL from '@/components/mdx/TIL';
 
-<TIL.Items date="2023-01-29">
+<TIL.Items date="2026-11-10">
 
   <TIL.Item>
-    
-    ## Tailwind CSS !important modifier
+
+    ## MCP 工具返回结构化可恢复错误优于直接抛异常
 
     <TIL.ItemTags>
-      <TIL.ItemTag>tailwindcss</TIL.ItemTag>
-      <TIL.ItemTag>css</TIL.ItemTag>
+      <TIL.ItemTag>agent</TIL.ItemTag>
+      <TIL.ItemTag>mcp</TIL.ItemTag>
+      <TIL.ItemTag>spring-ai</TIL.ItemTag>
     </TIL.ItemTags>
 
-    Make any utility important by adding a `!` character to the beginning:
+    在 ReAct 循环中，如果工具调用遇到参数格式偏差（例如工作表名不存在或日期列为空）时直接抛出未捕获运行时异常中断链路，模型将失去自我修正机会。
 
-    ```html
-    <p class="font-bold !font-medium">
-      This will be medium even though bold comes later in the CSS.
-    </p>
-    ```
-
-    [Official Docs](https://tailwindcss.com/docs/configuration#important-modifier)
+    将可预期的业务校验失败封装为包含 `error_code`、`reason` 与 `hint` 的结构化文本回传至 Observation，模型通常能在下一轮推理中自主修正脚本参数完成解析。
 
   </TIL.Item>
 
 </TIL.Items>
 
-<TIL.Items date="2023-01-18">
+<TIL.Items date="2026-09-22">
 
   <TIL.Item>
-    
-    ## nested backdrop-filter
+
+    ## 用 `pass^k` 替代单次通过率评估生产级 Agent 规则变更
 
     <TIL.ItemTags>
-      <TIL.ItemTag>css</TIL.ItemTag>
+      <TIL.ItemTag>agent</TIL.ItemTag>
+      <TIL.ItemTag>eval</TIL.ItemTag>
     </TIL.ItemTags>
 
-    Backdrop filter tidak akan berhasil jika parent memiliki efek backdrop-filter juga.
+    大语言模型生成代码天然存在采样波动。在业务高度敏感的政策解析场景中，`pass@k`（跑 `k` 次只要对一次就算过）会严重高估线上可用性。
 
-    [issue](https://bugs.chromium.org/p/chromium/issues/detail?id=993644) &mdash; [workaround](https://stackoverflow.com/questions/60997948/backdrop-filter-not-working-for-nested-elements-in-chrome)
+    采用 `pass^3`（同一黄金集样本连续独立执行 3 次全部严格命中才视为通过）作为候选规则发布门禁，能够有效筛除偶发侥幸通过的不稳定 Prompt 与规则。
 
   </TIL.Item>
 
 </TIL.Items>
 
-<TIL.Items date="2023-01-17">
+<TIL.Items date="2026-04-15">
 
   <TIL.Item>
 
-    ## pre overflow: scroll inside flex
+    ## Apache POI `SXSSFWorkbook` 导出后务必调用 `dispose()`
 
     <TIL.ItemTags>
-      <TIL.ItemTag>css</TIL.ItemTag>
-      <TIL.ItemTag>pre</TIL.ItemTag>
-      <TIL.ItemTag>flex</TIL.ItemTag>
+      <TIL.ItemTag>java</TIL.ItemTag>
+      <TIL.ItemTag>poi</TIL.ItemTag>
+      <TIL.ItemTag>oom</TIL.ItemTag>
     </TIL.ItemTags>
 
-    Pernah pake `overflow-x: scroll` pada `pre` element tapi ngga ngaruh, malah parent yang ada scrollnya?
-
-    Mungkin parentnya didalem `display: flex`. Kalau iya, coba tambahin `min-width: 0` pada parentnya.
-
-    [Credit](https://weblog.west-wind.com/posts/2016/feb/15/flexbox-containers-pre-tags-and-managing-overflow)
-
-  </TIL.Item>
-
-  <TIL.Item>
-
-    ## import mdx file sebagai component
-
-    <TIL.ItemTags>
-      <TIL.ItemTag>react</TIL.ItemTag>
-      <TIL.ItemTag>mdx</TIL.ItemTag>
-    </TIL.ItemTags>
-
-    Import mdx file di component, caranya mirip seperti import component biasa:
-
-    ```ts {copy:false} {footer:false}
-    import Contents from '@/mdx/Contents.mdx';
-
-    // Penggunaan
-    <Contents />
-    ```
-
-    Ternyata ada di [dokumentasinya](https://mdxjs.com/docs/using-mdx/#mdx-content). Biasakan membaca dulu ya gais jangan kaya saya wkwk.
-
-  </TIL.Item>
-
-  <TIL.Item>
-
-    ## :not() pseudo-class
-
-    <TIL.ItemTags>
-      <TIL.ItemTag>css</TIL.ItemTag>
-      <TIL.ItemTag>selector</TIL.ItemTag>
-    </TIL.ItemTags>
-
-    Pake `:not()` ini emang agak tricky, salah penggunaan hasilnya juga bisa ngga sesuai harapan.
-
-    Contoh, styling inline `code` dimana bukan children dari `pre` ataupun `.code-block`. Penggunaannya:
+    使用 `SXSSFWorkbook` 流式写入十万行级 Excel 虽然能避免堆内存 OOM，但它会在系统临时目录生成大量 `.xml` 缓存文件。仅仅关闭输出流或调用 `close()` 在部分版本下并不会清理磁盘临时文件：
 
     <TIL.DnD>
       <TIL.Dont>
-        ```css {copy:false} {footer:false}
-        :not(pre), :not(.code-block) {
-          > code {
-            background-color: 'red';
-          }
+        ```java {copy:false} {footer:false}
+        try (SXSSFWorkbook wb = new SXSSFWorkbook(500)) {
+          writeRows(wb);
+          wb.write(outputStream);
         }
         ```
       </TIL.Dont>
       <TIL.Do>
-        ```css {copy:false} {footer:false}
-        :not(pre, .code-block) {
-          > code {
-            background-color: 'red';
-          }
+        ```java {copy:false} {footer:false}
+        SXSSFWorkbook wb = new SXSSFWorkbook(500);
+        try {
+          writeRows(wb);
+          wb.write(outputStream);
+        } finally {
+          wb.dispose(); // 显式清理磁盘临时刷写文件
+          wb.close();
         }
         ```
       </TIL.Do>
@@ -123,43 +80,63 @@ import TIL from '@/components/mdx/TIL';
 
 </TIL.Items>
 
-<TIL.Items date="2023-01-16">
+<TIL.Items date="2025-08-03">
 
   <TIL.Item>
 
-    ## Turborepo dependsOn
+    ## RabbitMQ 死信队列（DLX）与延迟交换机插件的选型差异
 
     <TIL.ItemTags>
-      <TIL.ItemTag>turborepo</TIL.ItemTag>
-      <TIL.ItemTag>monorepo</TIL.ItemTag>
+      <TIL.ItemTag>rabbitmq</TIL.ItemTag>
+      <TIL.ItemTag>architecture</TIL.ItemTag>
     </TIL.ItemTags>
 
-    ```json {copy:false} {footer:false}
-    "build": {
-      "dependsOn": ["^lint", "test"]
-    },
-    ```
+    如果队列中同时混入不同 TTL 的消息，基于普通队列 TTL + 死信交换机（DLX）的方案只会检查队首消息是否过期，从而引发严重的**队头阻塞**（短延时消息被长延时消息堵在后面）。
 
-    `dependsOn` dengan ^ menandakan task dari package lain, sedangkan yang tanpa ^ task dari package itu sendiri.
-
-    Misal: app A pas mau build harus running tasks `lint` di semua package dependenciesnya, dan juga harus running task `test` app A itu sendiri.
+    在停车订单超时自动关单等存在多档超时时间的场景下，应使用 `rabbitmq_delayed_message_exchange`（`x-delayed-message`）插件，在交换机层暂存并按实际到期时间投递。
 
   </TIL.Item>
 
 </TIL.Items>
 
-<TIL.Items date="2023-01-15">
+<TIL.Items date="2025-02-19">
 
   <TIL.Item>
-    
-    ## e.target.valueAsNumber
+
+    ## MySQL 复合索引遇到范围查询后的列无法继续用于索引检索
 
     <TIL.ItemTags>
-      <TIL.ItemTag>html</TIL.ItemTag>
-      <TIL.ItemTag>js</TIL.ItemTag>
+      <TIL.ItemTag>mysql</TIL.ItemTag>
+      <TIL.ItemTag>innodb</TIL.ItemTag>
     </TIL.ItemTags>
 
-    Pakai `e.target.valueAsNumber` untuk otomatis mengembalikan nilai input sebagai number. Tidak perlu `parseInt(e.target.value)` lagi.
+    针对停车订单表常见查询条件 `park_id = ? AND create_time >= ? AND order_status = ?` 建立联合索引时，应将等值过滤列前置：
+
+    ```sql {copy:false} {footer:false}
+    -- 推荐：等值列在前，范围列在后，充分利用索引下推与覆盖
+    CREATE INDEX idx_park_status_time
+      ON parking_order (park_id, order_status, create_time);
+    ```
+
+    若写成 `(park_id, create_time, order_status)`，在 `create_time` 发生范围扫描后，`order_status` 将无法再参与 B+ 树快速定位。
+
+  </TIL.Item>
+
+</TIL.Items>
+
+<TIL.Items date="2024-09-14">
+
+  <TIL.Item>
+
+    ## Netty 自定义解码器中的 `ByteBuf` 引用计数泄漏排查
+
+    <TIL.ItemTags>
+      <TIL.ItemTag>java</TIL.ItemTag>
+      <TIL.ItemTag>netty</TIL.ItemTag>
+      <TIL.ItemTag>iot</TIL.ItemTag>
+    </TIL.ItemTags>
+
+    在接入多品牌车位相机与电单车中控时，继承 `ByteToMessageDecoder` 无须手动 `release(in)`（父类会自动释放累积器）；但如果在业务 `ChannelInboundHandlerAdapter` 中消费了直接内存 `ByteBuf` 却未向下游 `fireChannelRead` 传递，必须放入 `try / finally` 调用 `ReferenceCountUtil.release(msg)`，并在联调环境开启 `-Dio.netty.leakDetection.level=PARANOID` 提前暴露泄漏点。
 
   </TIL.Item>
 

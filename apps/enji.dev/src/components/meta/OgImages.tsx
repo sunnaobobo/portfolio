@@ -148,10 +148,10 @@ export function PostOgImage({
         <img
           width="48"
           height="48"
-          src="https://github.com/enjidev.png?size=48"
+          src="https://github.com/florianjsun.png?size=48"
           style={styles.authorAvatar}
         />
-        <div style={styles.authorName}>@enjidev</div>
+        <div style={styles.authorName}>@florianjsun</div>
 
         {date && (
           <>
@@ -179,13 +179,15 @@ export function PageOgImage({
   title = '',
   description = '',
 }: PageOgImageProps) {
+  const isWork = caption.toLowerCase() === 'work' || caption === '工作';
+
   return (
     <div style={styles.container}>
       {caption && (
         <>
           <div
             style={
-              caption.toLowerCase() === 'work'
+              isWork
                 ? { ...styles.category, ...styles.categoryWork }
                 : styles.category
             }
@@ -214,14 +216,14 @@ export function PageOgImage({
         <img
           width="48"
           height="48"
-          src="https://github.com/enjidev.png?size=48"
+          src="https://github.com/florianjsun.png?size=48"
           style={styles.authorAvatar}
         />
-        <div style={styles.authorName}>@enjidev</div>
+        <div style={styles.authorName}>@florianjsun</div>
       </div>
       <div
         style={
-          caption.toLowerCase() === 'work'
+          isWork
             ? { ...styles.borderBottom, ...styles.borderBottomWork }
             : styles.borderBottom
         }

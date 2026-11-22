@@ -1,0 +1,114 @@
+---
+title: 高组合数据不 OOM：航线笛卡尔积拆分与 SXSSF 流式导出实践
+description: 剖析机票单程转往返场景中航线笛卡尔积膨胀引发的 JVM 内存溢出问题，分享分片增量计算与流式写盘的完整工程方案。
+date: '2026-06-12'
+lang: zh
+tags:
+  - Java
+  - OOM治理
+  - POI
+  - 性能优化
+category: 性能优化
+---
+
+import Callout from '@/components/mdx/Callout';
+
+在机票政策投放一体化平台中，存在一个典型的计算放大场景：**单程政策转往返组合生成**。运营上传一份原始政策文件可能仅包含几百条出发地与目的地规则，但当需要按去程航线集合、回程航线集合、适用舱位以及多档旅行日期区间做组合展开时，目标记录数会瞬间呈**笛卡尔积**量级膨胀。
+
+在高组合量航司大文件压测与早期上线阶段，传统的“全量内存组装 List + `XSSFWorkbook` 一次性导出”模式极易把堆内存撑满，触发 Full GC 抖动甚至 `java.lang.OutOfMemoryError: Java heap space`。
+
+---
+
+## 拆解内存爆炸的两个根因
+
+通过堆转储快照（Heap Dump）分析，内存峰值主要堆积在两个位置：
+
+1. **业务对象集合驻留**：在规则引擎（正则提取 + Groovy 转换）展开单程转往返组合时，如果一次性将 `N × M` 条航线组合全部实例化为标准领域对象放入 `ArrayList`，数十万个富对象及其内部字符串引用会迅速吃光老年代空间。
+2. **`XSSFWorkbook` DOM 树开销**：Apache POI 默认的 `XSSFWorkbook` 会在内存中维护完整的 XML DOM 对象树，每行每列单元格的样式与值对象开销往往是原始文本体积的 10 倍以上。
+
+要彻底根治问题，必须打通 **“计算侧不攒全量集合”** 与 **“写入侧不驻留全量 DOM”** 两条链路。
+
+---
+
+## 工程解法：航线分片增量计算 + SXSSF 流式刷盘
+
+### 1. 按航线维度分片与流式消费
+
+我们没有盲目调大容器堆内存规格，而是将笛卡尔积计算重构为**分片迭代器（Chunked Generator）**模式：将去程航线按固定批次（例如每批 50 条）切片，每次仅计算当前分片与回程集合的局部组合，立即交付下游写入器消费，随后释放当前批次引用使其在年轻代（Young GC）快速回收。
+
+```java {title:RouteCombinationStreamer.java}
+public void streamRoundTripPolicies(
+    List<RouteSegment> outboundList,
+    List<RouteSegment> inboundList,
+    Consumer<List<StandardPolicyRow>> batchConsumer) {
+
+  List<List<RouteSegment>> shards = Lists.partition(outboundList, SHARD_SIZE);
+  for (List<RouteSegment> shard : shards) {
+    List<StandardPolicyRow> buffer = new ArrayList<>(BATCH_FLUSH_SIZE);
+    for (RouteSegment out : shard) {
+      for (RouteSegment in : inboundList) {
+        if (!RouteMatcher.isComposable(out, in)) {
+          continue; // 前置剪枝无效往返组合，减少无效对象分配
+        }
+        buffer.add(groovyTransformer.compose(out, in));
+        if (buffer.size() >= BATCH_FLUSH_SIZE) {
+          batchConsumer.accept(buffer);
+          buffer.clear();
+        }
+      }
+    }
+    if (!buffer.isEmpty()) {
+      batchConsumer.accept(buffer);
+    }
+  }
+}
+```
+
+注意其中的**前置剪枝（Early Pruning）**：在真正调用 Groovy 脚本构造目标对象之前，先用轻量级条件过滤掉起降城市不闭环、航司代码不匹配或有效期无交集的组合，从源头削减了超过 60% 的无效对象创建。
+
+### 2. 使用 `SXSSFWorkbook` 滑动窗口流式落盘
+
+在文件写出层，我们将 `XSSFWorkbook` 替换为基于滑动窗口的 `SXSSFWorkbook(rowAccessWindowSize)`：内存中仅保留最近 `500` 行活跃数据，超出窗口的历史行自动序列化并流式刷写至本地临时磁盘文件。
+
+```java {title:StreamingExcelWriter.java}
+public File exportToTempFile(Consumer<Consumer<List<StandardPolicyRow>>> producer)
+    throws IOException {
+  File targetFile = Files.createTempFile("policy-export-", ".xlsx").toFile();
+  SXSSFWorkbook workbook = new SXSSFWorkbook(500);
+  workbook.setCompressTempFiles(true); // 开启临时 XML 压缩，降低磁盘占满风险
+
+  try (FileOutputStream fos = new FileOutputStream(targetFile)) {
+    SXSSFSheet sheet = workbook.createSheet("标准投放政策");
+    CellStyle sharedStyle = createSharedCellStyle(workbook); // 复用单元格样式对象
+    AtomicInteger rowIdx = new AtomicInteger(writeHeader(sheet));
+
+    producer.accept(batch -> {
+      for (StandardPolicyRow item : batch) {
+        Row row = sheet.createRow(rowIdx.getAndIncrement());
+        fillRow(row, item, sharedStyle);
+      }
+    });
+
+    workbook.write(fos);
+    return targetFile;
+  } finally {
+    workbook.dispose(); // 关键：清理 POI 刷盘产生的临时缓存文件
+    workbook.close();
+  }
+}
+```
+
+<Callout variant="warning">
+  实战细节提醒：一是高频循环内切勿反复调用
+  `workbook.createCellStyle()`，不仅浪费内存还会触发 Excel
+  最大样式数量上限（64000 个）；二是必须在 `finally` 块显式调用
+  `workbook.dispose()`，否则高并发导出很快会打满容器 `/tmp` 挂载卷。
+</Callout>
+
+---
+
+## 结合异步消息驱动规避长任务阻塞
+
+即便单文件内存被严格锁定在常数级水位，高组合大文件的流式计算与 OSS 上传仍需耗时数十秒。如果在 HTTP 同步请求或工作流主线程内直接执行，极易占满业务线程池。
+
+因此我们在外层借助 **MetaQ 消息驱动** 将“解析转换—验舱验价—自动投放”各节点异步解耦，配合 Flowable 状态机实时回写阶段进度。最终不仅彻底消灭了大文件场景下的 OOM 告警，还将单份机票政策的端到端平均投放时效从 **72 小时以上压缩至 3 小时以内**。

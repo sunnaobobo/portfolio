@@ -68,25 +68,22 @@ function PostPreview({
         {pinned && (
           <div
             className={clsx(
-              'relative mb-4 flex items-center gap-2 font-semibold text-slate-500',
-              'sm:text-slate-500',
-              'dark:text-slate-400 dark:sm:text-accent-400'
+              'relative mb-3 flex items-center gap-2 text-sm font-semibold text-accent-600',
+              'dark:text-accent-400'
             )}
           >
-            <PinIcon className={clsx('h-5 w-5')} />
-            Pinned Post
+            <PinIcon className={clsx('h-4 w-4')} />
+            置顶文章
           </div>
         )}
         <div
           className={clsx(
-            'text-slate mb-2 flex flex-col gap-2 text-xs text-slate-500',
-            'md:mb-1 dark:text-slate-400'
+            'mb-2 flex flex-col gap-2 text-xs text-slate-500',
+            'md:mb-1.5 dark:text-slate-400'
           )}
         >
-          <div className={clsx('flex gap-1')}>
-            <time dateTime={date} className={clsx('first-letter:uppercase')}>
-              {formatDateRelative(date)}
-            </time>
+          <div className={clsx('flex items-center gap-1.5')}>
+            <time dateTime={date}>{formatDateRelative(date)}</time>
             <span>&middot;</span>
             <span>{formatLang(lang)}</span>
           </div>
@@ -94,9 +91,9 @@ function PostPreview({
         <div className={clsx('mb-2')}>
           <h2
             className={clsx(
-              'text-xl font-extrabold text-slate-700',
-              'md:text-2xl',
-              'dark:text-slate-300'
+              'text-xl leading-snug font-extrabold text-slate-800',
+              'md:text-2xl md:leading-snug',
+              'dark:text-slate-200'
             )}
           >
             {title}
@@ -104,7 +101,7 @@ function PostPreview({
         </div>
         <p
           className={clsx(
-            'mb-3 block leading-relaxed text-slate-600',
+            'mb-3.5 block leading-7 text-slate-600',
             'dark:text-slate-400'
           )}
         >
@@ -119,18 +116,12 @@ function PostPreview({
         >
           <InsightIcon className={clsx('-mt-0.5 h-4 w-4')} />
           <span className={clsx('flex gap-1.5')}>
-            <span
-              className={clsx('flex items-center gap-1.5')}
-              title="Number of view(s)"
-            >
-              <CountUp from={0} to={views} /> Views
+            <span className={clsx('flex items-center gap-1')} title="阅读次数">
+              <CountUp from={0} to={views} /> 阅读
             </span>
             <span>&middot;</span>
-            <span
-              className={clsx('flex items-center gap-1.5')}
-              title="Number of share(s)"
-            >
-              <CountUp from={0} to={shares} /> Shares
+            <span className={clsx('flex items-center gap-1')} title="分享次数">
+              <CountUp from={0} to={shares} /> 分享
             </span>
           </span>
         </div>
@@ -141,8 +132,8 @@ function PostPreview({
             pinned ? ['flex', 'sm:hidden'] : 'flex'
           )}
         >
-          read more{' '}
-          <ChevronRightIcon className="mt-1 h-3 w-3 transition group-hover:animate-bounce-x" />
+          阅读全文
+          <ChevronRightIcon className="mt-0.5 h-3 w-3 transition group-hover:animate-bounce-x" />
         </div>
       </Link>
     </article>

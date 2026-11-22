@@ -1,62 +1,58 @@
 ---
-title: Experience
-description: All about my freelance and professional work experience.
-caption: Work
+title: 工作经历
+description: 从城市级微服务与物联网全栈系统，到核心业务 AI 智能体工程化的三年研发履历。
+caption: 工作
 layout: PageWithMDX
 ---
 
-I started my professional career as a web developer around 2016. In 2021, I resigned from my job to focus on completing college matters while taking on some freelance projects.
+import Callout from '@/components/mdx/Callout';
+
+自 2023 年计算机科学与技术专业本科毕业以来，我拥有 **3 年全职研发经验**。早期深耕于城市智慧交通与企业园区等高并发微服务与多协议物联网系统；目前聚焦于 **AI 智能体（Agent）工程化落地**，致力于把大模型推理能力与复杂企业级业务系统深度融合。
 
 ---
 
-## Freelance
+## 全职经历
 
-**Xyvo Technologies B.V.** (Feb 2023 - Present)
+### 深圳易宝软件有限公司
 
-1. Improving the UI & UX of some website projects.
-2. Designing in Figma and creating Vue components for the projects.
+**AI 开发**（2025 年 8 月 - 至今）
 
-**CKCollab** (Jan 2023 - Mar 2023)
+驻场深度参与飞猪机票核心业务自动化与一体化投放平台研发，聚焦多格式航司优惠政策理解、工作流编排与智能体工程建设：
 
-1. Designed a new look for CKCollab website in Figma.
-2. Transformed the Figma design to HTML using React and Framer Motion.
+1. **机票政策解析 Agent Harness 从 0 到 1 建设**：主导整体架构、核心开发及上线迭代。设计基于 ReAct 的 Agent 运行机制，统一任务上下文、MCP 工具接口与执行反馈，集成文件读写、模板匹配、Python 脚本生成执行与 OSS 上传等能力，打通“文件解析—验价—投放上线”自动化链路。
+2. **任务级沙箱与可控执行机制**：针对大模型动态生成脚本的不确定性，构建任务级独立工作区、权限约束与资源配额隔离，避免并发任务串扰或异常脚本影响核心服务。
+3. **双轨质量评测与规则自进化闭环**：建立离线分层门禁与线上复核金标监控体系；构建“字段反馈—AI 冲突检测与候选生成—回归评测（`pass^3`）—版本化审核发布”规则闭环，支撑日均 **140+** 份政策文件自动解析（成功率 **100%**，准确率由 **76.4%** 提升至 **92.1%**，单文件耗时由 **2 小时** 缩短至 **5 分钟**；40 家航司规则建设周期由 **15 天** 压缩至 **3 天**）。
+4. **机票投放一体化全链路改造**：引入 Flowable 编排全流程线上化节点，设计“正则提取 + Groovy 转换”平台化规则方案，采用航线分片增量计算与 `SXSSFWorkbook` 流式写盘解决笛卡尔积 OOM 问题，并通过 MetaQ 异步复用领域服务将平均投放时效由 **72 小时+** 缩短至 **3 小时** 以内。
 
-**1928.id** (Mar 2022 - Oct 2022)
+### 泰安市东信智联信息科技有限公司
 
-1. Improved the UI & UX of Femicam's desktop application based on React Electron and Material UI.
-2. Designed and created React components for the application dashboard.
-3. Created an image editor using Sharp.js.
+**全栈开发**（2023 年 7 月 - 2025 年 7 月）
 
-**Hemat.id** (Jun 2022 - Jul 2022)
+参与城市级智慧停车、共享电单车调度及智慧园区等数字化平台全栈研发，贯通硬件协议接入、分布式后端微服务与小程序/管理端界面：
 
-1. Created main site navigation (menu, footer, mobile drawer) using Tailwind CSS.
-2. Created product tiles, promotion cards, and other small components using Tailwind CSS.
+1. **核心平台微服务研发**：负责“泰山易行”设备网关、百万级日志采集分析系统与线上运维工单服务的迭代升级；参与“泰山易停 & 小停泊车”订单实时检索同步（Canal + ElasticSearch）、超时延迟队列处理（RabbitMQ）及基于 Spring AI + MCP + Qwen3 的智能停车助手建设。
+2. **多端功能落地与部署**：负责“泰山易停 & 小停泊车”小程序升级、路内停车自动计费模块的设计开发以及测试环境持续集成部署。
+3. **物联网协议标准制定**：与硬件研发部门协同论证公司硬件产品的通信协议选型（TCP / UDP / MQTT），主导编写设备接入协议规范文档。
+4. **异构智能硬件集成**：基于 Netty 等网络框架完成车位相机、车位锁、地磁传感器、抓拍机、电单车中控及人脸识别消费机等多品类物联设备与业务系统的对接联调。
 
-**Ciptaloka** (Jan 2022 - Mar 2022)
-
-1. Created main site navigation (mega-menu, mobile drawer) using Tailwind CSS.
-2. Revamped shopping cart & checkout pages (~18 pages in total).
-
----
-
-## Full-time Work
-
-**Ciptaloka** (Jul 2016 - Jun 2021)
-
-My first and (currently) only professional work is at Ciptaloka. At Ciptaloka, I do many types of work, such as developing desktop, mobile, and web applications.
-
-However, my work there is primarily focused on web development, and around the last 2 years I worked there, I have learned a lot about React, particularly when creating the v2 design editor.
-
-Here are the details of the work I did at Ciptaloka:
-
-- Created the v2 design editor layout using React.
-- Redesigned the website's front page from vanilla CSS to use Foundation 6.
-- Developed interactive UI on mobile editor using Framework7, Backbone.js, and Marionette.js.
-- Created e-mail marketing design templates using Foundation for E-mails.
-- Customized the blog.ciptaloka.com WordPress theme to match the looks and feels of the main site.
+<Callout variant="info">
+  **年度荣誉表彰**：凭借在城市智慧交通系列平台交付与线上稳定性保障中的突出表现，获评
+  **泰山发展投资 2024 年度先进个人**。
+</Callout>
 
 ---
 
-## What They Say
+## 教育背景与专业资质
 
-&mdash;
+| 类别     | 院校 / 机构                          | 专业 / 证书名称    | 时间        |
+| -------- | ------------------------------------ | ------------------ | ----------- |
+| 本科学历 | 吕梁学院                             | 计算机科学与技术   | 2019 - 2023 |
+| 职业资格 | 全国计算机技术与软件专业技术资格考试 | 软件设计师（中级） | 已获证      |
+
+---
+
+## 工程理念与个人特质
+
+- **追求确定性的工程落地**：在引入新技术（尤其是 LLM 与动态代码执行）时，始终同步设计沙箱边界、回归门禁与版本化回滚机制，确保线上高可用。
+- **快速学习与跨栈视野**：从底层 Netty 字节流解析、InnoDB 索引调优、分布式消息解耦到 React / Vue 前端交互与 Agent 上下文工程，能快速切入陌生领域并独立闭环交付。
+- **注重协作与线上细节**：崇尚清晰整洁的代码规范与技术文档沉淀，善于跨团队（业务运营、算法引擎、物联网硬件）高效对齐边界，对生产环境隐患保持高度敏锐。

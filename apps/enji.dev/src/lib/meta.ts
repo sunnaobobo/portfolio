@@ -10,9 +10,13 @@ import type {
 } from '@/generated/prisma/enums';
 import type { TContentActivity, TContentMeta, TReaction } from '@/types';
 
+const hasDatabase = Boolean(process.env.DATABASE_URL);
+
 export const getAllContentMeta = async (): Promise<
   Record<string, TContentMeta>
 > => {
+  if (!hasDatabase) return {};
+
   const result = await prisma.contentMeta.findMany({
     include: {
       _count: {
@@ -46,6 +50,8 @@ export const getAllContentMeta = async (): Promise<
 export const getContentMeta = async (
   slug: string
 ): Promise<{ shares: number; views: number }> => {
+  if (!hasDatabase) return { shares: 0, views: 0 };
+
   const result = await prisma.contentMeta.findFirst({
     where: {
       slug,
@@ -67,6 +73,8 @@ export const getContentMeta = async (
 };
 
 export const getContentActivity = async (): Promise<TContentActivity[]> => {
+  if (!hasDatabase) return [];
+
   // last 24 hours
   const date = dayjs().subtract(24, 'hours').toDate();
 
@@ -149,6 +157,8 @@ export const getNewPosts = async (): Promise<
     createdAt: Date;
   }[]
 > => {
+  if (!hasDatabase) return [];
+
   // last 8 days
   const date = dayjs().subtract(8, 'days').toDate();
 
@@ -176,6 +186,8 @@ export const getNewPosts = async (): Promise<
 };
 
 export const getReactions = async (slug: string): Promise<TReaction> => {
+  if (!hasDatabase) return { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
+
   const result = await prisma.reaction.groupBy({
     by: ['type'],
     _sum: {
@@ -215,6 +227,8 @@ export const getSectionMeta = async (
     }
   >
 > => {
+  if (!hasDatabase) return {};
+
   const result = await prisma.reaction.groupBy({
     by: ['section', 'type'],
     _sum: {
@@ -259,6 +273,8 @@ export const getReactionsBy = async (
   slug: string,
   sessionId: string
 ): Promise<TReaction> => {
+  if (!hasDatabase) return { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
+
   const result = await prisma.reaction.groupBy({
     by: ['type'],
     _sum: {

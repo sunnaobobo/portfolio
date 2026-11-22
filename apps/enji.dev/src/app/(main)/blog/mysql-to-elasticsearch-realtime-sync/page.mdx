@@ -1,0 +1,78 @@
+---
+title: 基于 Canal 与 Binlog 的高并发订单实时检索同步实践
+description: 结合两百万用户级城市智慧停车平台实践，探讨如何通过 Canal 监听 Binlog 与线程池批处理保障 MySQL 与 ElasticSearch 实时一致。
+date: '2025-05-20'
+lang: zh
+tags:
+  - MySQL
+  - ElasticSearch
+  - Canal
+  - 数据同步
+category: 分布式架构
+---
+
+import Callout from '@/components/mdx/Callout';
+
+在“泰山易停 & 小停泊车”城市级综合停车管理平台中，系统接入了 200 余家路内与路外停车场，服务超过 200 万注册用户，日均产生约 5 万笔停车与充电订单。
+
+随着数据规模累计至千万行级，运营后台与车主端面临两类截然不同的负载诉求：
+
+- **交易核心链路（OLTP）**：车辆入场识别、计费锁单、支付回调与抬杆放行要求强事务一致性与极低写入延迟，依托 **MySQL（InnoDB）** 承载。
+- **多维组合检索（OLAP/Search）**：运营支持按车牌模糊匹配、停车场分组、路内泊位区间、出入场时间跨度、支付渠道及欠费状态自由组合筛选，若直接落到 MySQL 执行多条件 `LIKE` 与跨索引排序，极易拖慢主库连接池。
+
+引入 **ElasticSearch** 承接统一订单检索后，最核心的工程问题随之而来：**如何低侵入、低延迟且高可靠地保障 MySQL 与 ElasticSearch 的数据最终一致性？**
+
+---
+
+## 三种同步模式的权衡取舍
+
+在方案设计阶段，我们对比了三种常见同步路径：
+
+| 同步方案               | 核心优势                       | 主要短板                                          |
+| ---------------------- | ------------------------------ | ------------------------------------------------- |
+| 业务代码同步双写       | 逻辑直观，无需额外组件         | 强耦合核心交易链路，ES 抖动会拖累抬杆支付主流程   |
+| 应用层发送 MQ 异步同步 | 解耦较好                       | 多入口修改订单表时容易遗漏发消息，存在代码侵入    |
+| Canal 监听 Binlog      | 对业务交易零侵入，天然保序捕获 | 需做好消费端并发控制、幂等覆盖与全量/增量衔接设计 |
+
+由于停车订单状态变更入口众多（道闸相机上报、微信小程序主动缴费、RabbitMQ 延迟交换机支付超时自动处理、人工客服调账），**基于 Canal 伪装 Slave 订阅 MySQL Row 模式 Binlog** 成为了最干净、最不易漏数据的解耦方案。
+
+---
+
+## 核心同步链路与性能优化
+
+### 1. 按订单主键哈希路由保障局部有序
+
+如果消费端使用无序多线程池随机抢占 Binlog 事件，同一笔订单的 `INSERT`（入场）与紧随其后的 `UPDATE`（秒级免费出场或优惠券抵扣）可能发生乱序覆盖，导致 ES 文档停留在旧状态。
+
+我们在消费层采用了**按订单 ID 取模绑定固定工作线程（Striped Executor）+ 微批聚合 Bulk 写入**的设计：既能利用多线程提升整体吞吐量，又严格保证同一笔订单的变更事件按位点顺序串行落入缓冲队列。
+
+```java {title:OrderBinlogSyncDispatcher.java}
+public class OrderBinlogSyncDispatcher {
+  private final ExecutorService[] stripedWorkers;
+
+  public void dispatch(CanalRowChange event) {
+    int bucket = Math.floorMod(event.getOrderNo().hashCode(), stripedWorkers.length);
+    stripedWorkers[bucket].submit(() -> bufferAndBulkUpsert(bucket, event));
+  }
+}
+```
+
+### 2. 基于版本号与文档 ID 的天然幂等
+
+网络抖动或消费节点重启重放位点时，同一条 Binlog 事件可能被投递多次。我们统一以业务唯一单号 `order_no` 作为 ElasticSearch 的 `_id`，并在索引写入时携带数据库的 `update_time`（或递增 `version`）作为外部版本控制条件，确保旧事件重放绝不会倒退覆盖新状态。
+
+### 3. 统一查询门面简化多子系统接入
+
+在打通底层增量实时同步后，我们对上层业务接口进行了全面梳理收敛：将路外停车场订单、路内相机泊位订单及充换电订单抽象为统一的检索协议与宽表文档结构，前端与小程序仅需对接一套标准分页筛选接口即可完成毫秒级多维查询。
+
+<Callout variant="neutral">
+  **补偿兜底不可少**：任何异步同步管道都需要考虑极端故障恢复。我们额外保留了一个低频定时对账任务，按近
+  15 分钟 `update_time` 抽检比对 MySQL 与 ES
+  记录数及关键状态摘要，发现偏差自动触发单号级重刷修复。
+</Callout>
+
+---
+
+## 小结
+
+通过“MySQL 专注高频事务 + Canal 监听 Binlog 异步捕获 + 分片线程池 Bulk 写入 ElasticSearch + 定时对账兜底”的组合拳，我们以对交易核心零侵入的代价，支撑了百万级用户日常顺滑的订单秒级检索体验。

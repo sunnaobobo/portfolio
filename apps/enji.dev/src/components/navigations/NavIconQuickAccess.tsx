@@ -19,8 +19,8 @@ function NavIconQuickAccess() {
         'hover:bg-slate-300/70 sm:ml-0',
         'dark:bg-slate-800/50 dark:text-slate-100 dark:hover:bg-slate-700/50'
       )}
-      aria-label="Open Quick Access"
-      title="Open Quick Access"
+      aria-label="打开快捷入口"
+      title="打开快捷入口"
       onClick={() => {
         setQuickAccessOpen(true);
       }}
@@ -28,12 +28,12 @@ function NavIconQuickAccess() {
       <QuickAccessIcon className={clsx('h-5 w-5')} />
       <div
         className={clsx(
-          'hidden items-center gap-2 text-xs font-bold',
+          'hidden items-center gap-2 text-xs font-semibold',
           'xl:flex',
           'dark:font-normal'
         )}
       >
-        Quick Access
+        快捷入口
         <Kbd>Q</Kbd>
       </div>
     </button>
