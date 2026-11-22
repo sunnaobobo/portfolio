@@ -322,6 +322,8 @@ export const setReaction = async ({
   sessionId: string;
   type: ReactionType;
 }) => {
+  if (!hasDatabase) return null;
+
   const result = await prisma.reaction.create({
     data: {
       count,
@@ -350,6 +352,8 @@ export const getSharesBy = async (
   slug: string,
   sessionId: string
 ): Promise<number> => {
+  if (!hasDatabase) return 0;
+
   const result = await prisma.share.count({
     where: {
       sessionId,
@@ -375,6 +379,8 @@ export const setShare = async ({
   type: ShareType;
   sessionId: string;
 }) => {
+  if (!hasDatabase) return null;
+
   const result = await prisma.share.create({
     data: {
       type,
@@ -401,6 +407,8 @@ export const getViewsBy = async (
   slug: string,
   sessionId: string
 ): Promise<number> => {
+  if (!hasDatabase) return 0;
+
   const result = await prisma.view.count({
     where: {
       sessionId,
@@ -424,6 +432,8 @@ export const setView = async ({
   contentTitle: string;
   sessionId: string;
 }) => {
+  if (!hasDatabase) return null;
+
   const result = await prisma.view.create({
     data: {
       sessionId,

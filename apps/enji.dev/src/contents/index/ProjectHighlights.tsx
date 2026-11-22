@@ -7,6 +7,7 @@ import SectionTitle from '@/components/sections/SectionTitle';
 
 const featuredProjects = [
   {
+    slug: 'fliggy-policy-parse-agent',
     role: 'AI 全栈开发',
     title: '机票政策解析 AI 自动化（飞猪）',
     summary:
@@ -21,6 +22,7 @@ const featuredProjects = [
     ],
   },
   {
+    slug: 'fliggy-policy-delivery-platform',
     role: 'AI 全栈开发',
     title: '机票投放一体化项目（飞猪）',
     summary:
@@ -29,6 +31,7 @@ const featuredProjects = [
     stack: ['Flowable', 'MetaQ', 'Groovy', 'TDDL', 'Schedulex'],
   },
   {
+    slug: 'taishan-smart-parking',
     role: '全栈开发',
     title: '泰山易停 & 小停泊车平台',
     summary:
@@ -43,6 +46,7 @@ const featuredProjects = [
     ],
   },
   {
+    slug: 'taishan-shared-ebike',
     role: '全栈开发',
     title: '泰山易行共享电单车平台',
     summary:
@@ -61,7 +65,7 @@ function ProjectHighlights() {
           caption="精选项目"
           description="涵盖在线旅游核心业务 AI 自动化、全流程工作流平台与百万用户级城市智慧交通系统。"
           button={{
-            title: '浏览全部项目详情',
+            title: '浏览全部项目列表',
             href: '/projects',
           }}
         />
@@ -75,8 +79,8 @@ function ProjectHighlights() {
         >
           {featuredProjects.map((project) => (
             <Link
-              key={project.title}
-              href="/projects"
+              key={project.slug}
+              href={`/projects/${project.slug}`}
               className={clsx(
                 'group flex flex-col justify-between rounded-2xl border border-divider-light bg-white p-6 transition duration-200',
                 'hover:border-accent-400',
@@ -103,14 +107,14 @@ function ProjectHighlights() {
                       'dark:text-slate-400 dark:group-hover:text-accent-400'
                     )}
                   >
-                    查看架构详情
+                    查看详情
                     <ChevronRightIcon className="h-3 w-3 transition group-hover:translate-x-0.5" />
                   </span>
                 </div>
                 <h3
                   className={clsx(
-                    'mb-2.5 text-xl font-extrabold text-slate-800',
-                    'dark:text-slate-100'
+                    'mb-2.5 text-xl font-extrabold text-slate-800 transition-colors group-hover:text-accent-600',
+                    'dark:text-slate-100 dark:group-hover:text-accent-400'
                   )}
                 >
                   {project.title}

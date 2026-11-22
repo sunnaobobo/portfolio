@@ -42,9 +42,16 @@ export type TPostOgImage = Partial<
 };
 
 export type TProjectFrontMatter = TBaseFrontMatter & {
+  role?: string;
+  period?: string;
+  category?: string;
+  highlights?: Array<string>;
+  stack?: Array<string>;
+  pinned?: boolean;
+  order?: number;
   githubUrl?: string;
   npmUrl?: string;
-  type: 'package';
+  type?: 'package' | 'project';
 };
 
 export type TReaction = Record<ReactionType, number>;

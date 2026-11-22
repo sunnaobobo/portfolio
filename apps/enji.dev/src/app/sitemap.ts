@@ -1,4 +1,5 @@
 import { getPostSlugs } from '@/lib/posts';
+import { getProjectSlugs } from '@/lib/projects';
 
 import type { MetadataRoute } from 'next';
 
@@ -11,6 +12,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: 'daily' as const,
     priority: 0.6,
+  }));
+
+  const projectRoutes = getProjectSlugs().map((slug) => ({
+    url: `${SITE_URL}/projects/${slug}`,
+    lastModified: now,
+    changeFrequency: 'daily' as const,
+    priority: 0.8,
   }));
 
   const workSlugs = ['contact', 'experience', 'skills-and-tools', 'studio'];
@@ -52,6 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.6,
     },
+    ...projectRoutes,
     ...workRoutes,
     ...postRoutes,
   ];

@@ -19,9 +19,16 @@ const PostFrontMatter = z.object({
 });
 
 const ProjectFrontMatter = z.object({
+  role: z.string().default('全栈开发'),
+  period: z.string().default(''),
+  category: z.string().default('全栈工程'),
+  highlights: z.array(z.string()).default([]),
+  stack: z.array(z.string()).default([]),
+  pinned: z.boolean().default(false),
+  order: z.number().default(99),
   githubUrl: z.url().optional(),
   npmUrl: z.url().optional(),
-  type: z.enum(['package']).default('package'),
+  type: z.enum(['package', 'project']).default('project'),
 });
 
 const validate = <T extends z.ZodType>(

@@ -1,4 +1,5 @@
 import { buildPageMetadata } from '@/helpers/metadata';
+import { getSortedProjects } from '@/lib/projects';
 
 import ProjectsContents from '@/contents/projects';
 import HeaderImage from '@/contents/projects/HeaderImage';
@@ -13,6 +14,8 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function ProjectsPage() {
+  const projects = getSortedProjects();
+
   return (
     <Page
       frontMatter={{
@@ -22,7 +25,7 @@ export default function ProjectsPage() {
       }}
       headerImage={<HeaderImage />}
     >
-      <ProjectsContents />
+      <ProjectsContents projects={projects} />
     </Page>
   );
 }
