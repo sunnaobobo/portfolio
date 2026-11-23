@@ -6,8 +6,12 @@ export const getPageOgImageUrl = ({
   caption,
   title,
   description,
-}: TPageOgImage) => ({
-  default: encodeURI(
-    `${getBaseUrl()}/api/og-page?${getParams({ caption, title, description })}`
-  ),
-});
+}: TPageOgImage) => {
+  const params = getParams({ caption, title, description });
+
+  return {
+    default: params
+      ? `${getBaseUrl()}/api/og-page?${params}`
+      : `${getBaseUrl()}/api/og-page`,
+  };
+};
