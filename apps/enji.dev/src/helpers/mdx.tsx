@@ -1,3 +1,4 @@
+import { isValidElement } from 'react';
 import slug from 'slug';
 
 import { NpmIcon, PnpmIcon, YarnIcon } from '@/components/Icons';
@@ -14,20 +15,36 @@ import {
 
 import type { ReactElement, ReactNode } from 'react';
 
-export const getSlug = (children: ReactNode) => {
-  if (typeof children === 'string') {
-    const normalized = children
-      .trim()
-      .toLowerCase()
-      .replace(/[^\u4e00-\u9fa5a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '');
+export const getNodeText = (children: ReactNode): string => {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return String(children);
+  }
 
-    return normalized || slug(children);
+  if (Array.isArray(children)) {
+    return children.map(getNodeText).join('');
+  }
+
+  if (isValidElement<{ children?: ReactNode }>(children)) {
+    return getNodeText(children.props.children);
   }
 
   return '';
+};
+
+export const getSlug = (children: ReactNode) => {
+  const text = getNodeText(children);
+
+  if (!text) return '';
+
+  const normalized = text
+    .trim()
+    .toLowerCase()
+    .replace(/[^\u4e00-\u9fa5a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  return normalized || slug(text);
 };
 
 export const urlType = (url: string) => {

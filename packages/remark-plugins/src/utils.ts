@@ -47,6 +47,20 @@ export const slugifyHeading = (text: string) => {
   return normalized || slug(text);
 };
 
+const extractHeadingText = (node: any): string => {
+  if (!node) return '';
+
+  if (node.type === 'text' || node.type === 'inlineCode') {
+    return node.value ?? '';
+  }
+
+  if (Array.isArray(node.children)) {
+    return node.children.map(extractHeadingText).join('');
+  }
+
+  return '';
+};
+
 export const getTableOfContents = (tree: any) => {
   const contents: Array<{ title: string; slug: string; depth: number }> = [];
 
@@ -55,10 +69,7 @@ export const getTableOfContents = (tree: any) => {
 
     if (node.type === 'heading' && [2, 3].includes(node.depth)) {
       const depth = node.depth - 1;
-      const title = node.children
-        .filter((n: any) => n.type === 'text')
-        .map((n: any) => n.value)
-        .join('');
+      const title = extractHeadingText(node);
 
       contents.push({
         title,
