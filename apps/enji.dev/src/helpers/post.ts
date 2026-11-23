@@ -64,7 +64,9 @@ export const getPostOgImageUrl = (data: TPostOgImage) => {
       ? getParams({ ...data, aspectRatio })
       : getParams(data);
 
-    return encodeURI(`${getBaseUrl()}/api/og-post?${params}`);
+    return params
+      ? `${getBaseUrl()}/api/og-post?${params}`
+      : `${getBaseUrl()}/api/og-post`;
   };
 
   return {

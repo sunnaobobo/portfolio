@@ -11,8 +11,18 @@ export const getBaseUrl = () => {
 
 export const getParams = (
   obj: Record<string, string | Array<string> | undefined>
-) =>
-  Object.entries(obj)
-    .filter((entry) => entry[1])
-    .map(([key, val]) => `${key}=${val}`)
-    .join('&');
+) => {
+  const params = new URLSearchParams();
+
+  Object.entries(obj).forEach(([key, val]) => {
+    if (Array.isArray(val)) {
+      if (val.length > 0) {
+        params.set(key, val.join(','));
+      }
+    } else if (val) {
+      params.set(key, val);
+    }
+  });
+
+  return params.toString();
+};
