@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 import { HashtagIcon } from '@/components/Icons';
 
-import { getSlug } from '@/helpers/mdx';
+import { getNodeText, getSlug } from '@/helpers/mdx';
 
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
@@ -12,7 +12,8 @@ type Props = DetailedHTMLProps<
 >;
 
 export function H2({ children }: Props) {
-  const slug = getSlug(children);
+  const text = getNodeText(children);
+  const slug = getSlug(text);
 
   return (
     <h2
@@ -25,7 +26,7 @@ export function H2({ children }: Props) {
         href={`#${slug}`}
         className={clsx('mdx-heading__anchor group-hover:opacity-100')}
         aria-labelledby={slug}
-        title={`跳转到「${children}」`}
+        title={`跳转到「${text}」`}
       >
         <HashtagIcon />
       </a>
@@ -35,7 +36,8 @@ export function H2({ children }: Props) {
 }
 
 export function H3({ children }: Props) {
-  const slug = getSlug(children);
+  const text = getNodeText(children);
+  const slug = getSlug(text);
 
   return (
     <h3
@@ -48,6 +50,7 @@ export function H3({ children }: Props) {
         href={`#${slug}`}
         className={clsx('mdx-heading__anchor group-hover:opacity-100')}
         aria-labelledby={slug}
+        title={`跳转到「${text}」`}
       >
         <HashtagIcon />
       </a>
